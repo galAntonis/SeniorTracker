@@ -4,29 +4,43 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 
+import gr.galeos.seniortracker.R;
 import gr.galeos.seniortracker.databinding.FragmentDashboardBinding;
 
 public class DashboardFragment extends Fragment {
 
     private FragmentDashboardBinding binding;
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-        DashboardViewModel dashboardViewModel =
-                new ViewModelProvider(this).get(DashboardViewModel.class);
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         binding = FragmentDashboardBinding.inflate(inflater, container, false);
-        View root = binding.getRoot();
+        return binding.getRoot();
+    }
 
-        final TextView textView = binding.textDashboard;
-        dashboardViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
-        return root;
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+
+        super.onViewCreated(view, savedInstanceState);
+        loadUI();
+    }
+
+    private void loadUI() {
+        binding.historyTile.title.setText("Location History");
+        binding.historyTile.image.setImageDrawable(ResourcesCompat.getDrawable(getResources(),R.drawable.ic_location_history, null));
+        binding.viewFencesTile.title.setText("View Places");
+        binding.viewFencesTile.image.setImageDrawable(ResourcesCompat.getDrawable(getResources(),R.drawable.ic_view_fences, null));
+        binding.manageFencesTile.title.setText("Manage Places");
+        binding.manageFencesTile.image.setImageDrawable(ResourcesCompat.getDrawable(getResources(),R.drawable.ic_manage_fences, null));
+        binding.manageSeniorsTile.title.setText("Manage Seniors");
+        binding.manageSeniorsTile.image.setImageDrawable(ResourcesCompat.getDrawable(getResources(),R.drawable.ic_manage_seniors, null));
+        binding.settingsTile.title.setText("Settings");
+        binding.settingsTile.image.setImageDrawable(ResourcesCompat.getDrawable(getResources(),R.drawable.ic_settings, null));
     }
 
     @Override
