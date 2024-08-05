@@ -1,8 +1,11 @@
 package gr.galeos.seniortracker.ui.home;
 
-import static com.mapbox.maps.plugin.gestures.GesturesUtils.getGestures;
-import static com.mapbox.maps.plugin.locationcomponent.LocationComponentUtils.getLocationComponent;
 
+import android.Manifest;
+import android.Manifest.permission;
+import android.annotation.SuppressLint;
+import android.content.pm.PackageManager;
+import android.location.Location;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,170 +14,141 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.content.res.AppCompatResources;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 
-import com.mapbox.android.core.permissions.PermissionsListener;
-import com.mapbox.android.core.permissions.PermissionsManager;
-import com.mapbox.android.gestures.MoveGestureDetector;
-import com.mapbox.geojson.Point;
-import com.mapbox.maps.CameraOptions;
-import com.mapbox.maps.ImageHolder;
-import com.mapbox.maps.MapView;
-import com.mapbox.maps.Style;
-import com.mapbox.maps.plugin.LocationPuck2D;
-import com.mapbox.maps.plugin.gestures.OnMoveListener;
-import com.mapbox.maps.plugin.locationcomponent.LocationComponentPlugin;
-import com.mapbox.maps.plugin.locationcomponent.OnIndicatorBearingChangedListener;
-import com.mapbox.maps.plugin.locationcomponent.OnIndicatorPositionChangedListener;
-
-import java.util.List;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
 
 import gr.galeos.seniortracker.R;
 import gr.galeos.seniortracker.databinding.FragmentHomeBinding;
+import gr.galeos.seniortracker.utils.PermissionUtils;
 
-public class HomeFragment extends Fragment {
 
-    private HomeViewModel homeViewModel;
+
+public class HomeFragment extends Fragment implements
+        GoogleMap.OnMyLocationButtonClickListener,
+        GoogleMap.OnMyLocationClickListener,
+        OnMapReadyCallback,
+        ActivityCompat.OnRequestPermissionsResultCallback {
+
     private FragmentHomeBinding binding;
-    private MapView mapView;
 
-    private PermissionsManager permissionsManager;
+    private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
+
+    private boolean permissionDenied = false;
+
+    private GoogleMap map;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         return binding.getRoot();
-
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
         super.onViewCreated(view, savedInstanceState);
-        setViewModel();
-        binding.focusLocation.hide();
-
-        // Permission check and request
-        if (PermissionsManager.areLocationPermissionsGranted(requireContext())) {
-            setMap();
-            setLocation();
-        } else {
-            permissionsManager = new PermissionsManager(new PermissionsListener() {
-                @Override
-                public void onExplanationNeeded(@NonNull List<String> list) {
-
-                }
-
-                @Override
-                public void onPermissionResult(boolean b) {
-                    if (b) {
-                        setMap();
-                    } else {
-                        Toast.makeText(requireContext(), "Location permission not granted", Toast.LENGTH_SHORT).show();
-                    }
-                }
-            });
-            permissionsManager.requestLocationPermissions(requireActivity());
-        }
+        setupMap();
     }
 
-    private void setViewModel() {
+    private void setupMap() {
 
-        homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
-    }
-
-    private void setMap() {
-        mapView = binding.mapView;
-        mapView.getMapboxMap().setCamera(
-                new CameraOptions.Builder()
-                        .center(Point.fromLngLat(23.7116537, 37.9462486))
-                        .pitch(0.0)
-                        .zoom(20.0)
-                        .bearing(0.0)
-                        .build()
-        );
-
-        mapView.getMapboxMap().loadStyleUri(Style.MAPBOX_STREETS, new Style.OnStyleLoaded() {
-            @Override
-            public void onStyleLoaded(@NonNull Style style) {
-                mapView.getMapboxMap().setCamera(new CameraOptions.Builder().zoom(20.0).build());
-                LocationComponentPlugin locationComponentPlugin = getLocationComponent(mapView);
-                locationComponentPlugin.setEnabled(true);
-                LocationPuck2D locationPuck2D = new LocationPuck2D();
-    /*            locationPuck2D.setBearingImage( new ImageHolder(
-                        AppCompatResources.getDrawable(requireContext(), R.drawable.baseline_location_on_24)
-
-                ));*/
-                locationComponentPlugin.setLocationPuck(locationPuck2D);
-                locationComponentPlugin.addOnIndicatorBearingChangedListener(onIndicatorBearingChangedListener);
-                locationComponentPlugin.addOnIndicatorPositionChangedListener(onIndicatorPositionChangedListener);
-                getGestures(mapView).addOnMoveListener(onMoveListener);
-
-                binding.focusLocation.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        locationComponentPlugin.addOnIndicatorBearingChangedListener(onIndicatorBearingChangedListener);
-                        locationComponentPlugin.addOnIndicatorPositionChangedListener(onIndicatorPositionChangedListener);
-                        getGestures(mapView).addOnMoveListener(onMoveListener);
-                        binding.focusLocation.hide();
-                    }
-                });
-            }
-        });
-
-    }
-
-    private final OnIndicatorBearingChangedListener onIndicatorBearingChangedListener = new OnIndicatorBearingChangedListener() {
-        @Override
-        public void onIndicatorBearingChanged(double bearing) {
-            mapView.getMapboxMap().setCamera(
-                    new CameraOptions.Builder()
-                            .bearing(bearing)
-                            .build()
-            );
+        SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager()
+                .findFragmentById(R.id.map);
+        if (mapFragment != null) {
+            mapFragment.getMapAsync(this);
         }
-    };
-
-    private final OnIndicatorPositionChangedListener onIndicatorPositionChangedListener = new OnIndicatorPositionChangedListener() {
-        @Override
-        public void onIndicatorPositionChanged(@NonNull Point point) {
-            mapView.getMapboxMap().setCamera(
-                    new CameraOptions.Builder()
-                            .center(point)
-                            .zoom(20.0)
-                            .build()
-            );
-            getGestures(mapView).setFocalPoint(mapView.getMapboxMap().pixelForCoordinate(point));
-        }
-    };
-
-    private final OnMoveListener onMoveListener = new OnMoveListener() {
-        @Override
-        public void onMoveBegin(@NonNull MoveGestureDetector moveGestureDetector) {
-            getLocationComponent(mapView).removeOnIndicatorPositionChangedListener(onIndicatorPositionChangedListener);
-            getLocationComponent(mapView).removeOnIndicatorBearingChangedListener(onIndicatorBearingChangedListener);
-            getGestures(mapView).removeOnMoveListener(onMoveListener);
-        }
-
-        @Override
-        public boolean onMove(@NonNull MoveGestureDetector moveGestureDetector) {
-            return false;
-        }
-
-        @Override
-        public void onMoveEnd(@NonNull MoveGestureDetector moveGestureDetector) {
-
-        }
-    };
-
-    private void setLocation() {
-        //LocationComponentPlugin location = binding.mapView.lo
     }
 
     @Override
+    public void onMapReady(@NonNull GoogleMap googleMap) {
+
+        map = googleMap;
+        map.setOnMyLocationButtonClickListener(this);
+        map.setOnMyLocationClickListener(this);
+        enableMyLocation();
+    }
+
+    @SuppressLint("MissingPermission")
+    private void enableMyLocation() {
+        // [START maps_check_location_permission]
+        // 1. Check if permissions are granted, if so, enable the my location layer
+        if (ContextCompat.checkSelfPermission(this.requireContext(), Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED
+                || ContextCompat.checkSelfPermission(this.requireContext(), permission.ACCESS_COARSE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED) {
+            map.setMyLocationEnabled(true);
+            return;
+        }
+
+        // 2. Otherwise, request location permissions from the user.
+        PermissionUtils.requestLocationPermissions(this.requireActivity(), LOCATION_PERMISSION_REQUEST_CODE, true);
+        // [END maps_check_location_permission]
+    }
+
+
+    @Override
     public void onDestroyView() {
+
         super.onDestroyView();
         binding = null;
+    }
+
+    @Override
+    public boolean onMyLocationButtonClick() {
+        Toast.makeText(this.requireContext(), "MyLocation button clicked", Toast.LENGTH_SHORT).show();
+        // Return false so that we don't consume the event and the default behavior still occurs
+        // (the camera animates to the user's current position).
+        return false;
+    }
+
+    @Override
+    public void onMyLocationClick(@NonNull Location location) {
+        Toast.makeText(this.requireContext(), "Current location:\n" + location, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
+        if (requestCode != LOCATION_PERMISSION_REQUEST_CODE) {
+            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+            return;
+        }
+
+        if (PermissionUtils.isPermissionGranted(permissions, grantResults,
+                Manifest.permission.ACCESS_FINE_LOCATION) || PermissionUtils
+                .isPermissionGranted(permissions, grantResults,
+                        Manifest.permission.ACCESS_COARSE_LOCATION)) {
+            // Enable the my location layer if the permission has been granted.
+            enableMyLocation();
+        } else {
+            // Permission was denied. Display an error message
+            // [START_EXCLUDE]
+            // Display the missing permission error dialog when the fragments resume.
+            permissionDenied = true;
+            // [END_EXCLUDE]
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (permissionDenied) {
+            // Permission was not granted, display error dialog.
+            showMissingPermissionError();
+            permissionDenied = false;
+        }
+    }
+
+    /**
+     * Displays a dialog with error message explaining that the location permission is missing.
+     */
+    private void showMissingPermissionError() {
+        PermissionUtils.PermissionDeniedDialog
+                .newInstance(true).show(getChildFragmentManager(), "dialog");
     }
 }

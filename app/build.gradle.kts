@@ -1,5 +1,6 @@
 plugins {
     id("com.android.application")
+    id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
 }
 
 android {
@@ -29,16 +30,28 @@ android {
         }
     }
 
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
 
     buildFeatures {
-        viewBinding = true
         buildConfig = true
+        viewBinding = true
     }
 }
+
+secrets {
+    propertiesFileName = "secrets.properties"
+    defaultPropertiesFileName = "local.defaults.properties"
+    // Configure which keys should be ignored by the plugin by providing regular expressions.
+    // "sdk.dir" is ignored by default.
+    ignoreList.add("keyToIgnore") // Ignore the key "keyToIgnore"
+    ignoreList.add("sdk.*")       // Ignore all keys matching the regexp "sdk.*"
+
+}
+
 
 dependencies {
 
@@ -73,6 +86,16 @@ dependencies {
     // Navigation
     implementation("androidx.navigation:navigation-ui-ktx:$navigationVersion")
     implementation("androidx.navigation:navigation-fragment-ktx:$navigationVersion")
+
+    implementation("com.mapbox.navigationcore:navigation:3.3.0-rc.1")
+    implementation("com.mapbox.navigationcore:copilot:3.3.0-rc.1")
+    implementation("com.mapbox.navigationcore:ui-maps:3.3.0-rc.1")
+    implementation("com.mapbox.navigationcore:tripdata:3.3.0-rc.1")
+    implementation("com.mapbox.navigationcore:ui-components:3.3.0-rc.1")
+    implementation("com.mapbox.navigationcore:android:3.3.0-rc.1")
+
+
+    implementation("com.google.android.gms:play-services-maps:19.0.0")
 
     // Maps SDK for Android
     implementation("com.mapbox.maps:android:11.4.1")
