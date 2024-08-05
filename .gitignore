@@ -15,3 +15,7 @@
 local.properties
 secrets.properties
 local.defaults.properties
+
+build/
+.idea
+.java-version
