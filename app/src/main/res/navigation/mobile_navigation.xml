@@ -3,23 +3,76 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_home">
+    app:startDestination="@+id/fragment_home">
 
     <fragment
-        android:id="@+id/navigation_home"
+        android:id="@+id/fragment_home"
         android:name="gr.galeos.seniortracker.ui.home.HomeFragment"
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
+        android:id="@+id/fragment_dashboard"
         android:name="gr.galeos.seniortracker.ui.dashboard.DashboardFragment"
         android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        tools:layout="@layout/fragment_dashboard" >
+
+        <action
+            android:id="@+id/action_navigation_dashboard_to_navigation_settings"
+            app:destination="@id/fragment_settings" />
+
+        <action
+            android:id="@+id/action_navigation_dashboard_to_navigation_history"
+            app:destination="@id/fragment_history" />
+
+        <action
+            android:id="@+id/action_navigation_dashboard_to_navigation_view_places"
+            app:destination="@id/fragment_view_places" />
+
+        <action
+            android:id="@+id/action_navigation_dashboard_to_navigation_manage_places"
+            app:destination="@id/fragment_manage_places" />
+
+        <action
+            android:id="@+id/action_navigation_dashboard_to_navigation_manage_seniors"
+            app:destination="@id/fragment_manage_seniors"/>
+
+    </fragment>
 
     <fragment
-        android:id="@+id/navigation_notifications"
+        android:id="@+id/fragment_notifications"
         android:name="gr.galeos.seniortracker.ui.notifications.NotificationsFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_notifications" />
+
+    <fragment
+        android:id="@+id/fragment_settings"
+        android:name="gr.galeos.seniortracker.ui.settings.SettingsFragment"
+        android:label="@string/title_settings"
+        tools:layout="@layout/fragment_settings" />
+
+    <fragment
+        android:id="@+id/fragment_history"
+        android:name="gr.galeos.seniortracker.ui.locationHistory.LocationHistoryFragment"
+        android:label="@string/title_history"
+        tools:layout="@layout/fragment_location_history" />
+
+    <fragment
+        android:id="@+id/fragment_manage_places"
+        android:name="gr.galeos.seniortracker.ui.managePlaces.ManagePlacesFragment"
+        android:label="@string/title_manage_places"
+        tools:layout="@layout/fragment_manage_places" />
+
+    <fragment
+        android:id="@+id/fragment_view_places"
+        android:name="gr.galeos.seniortracker.ui.viewPlaces.ViewPlacesFragment"
+        android:label="@string/title_view_places"
+        tools:layout="@layout/fragment_view_places"/>
+
+    <fragment
+        android:id="@+id/fragment_manage_seniors"
+        android:name="gr.galeos.seniortracker.ui.manageSeniors.ManageSeniorsFragment"
+        android:label="@string/title_manage_seniors"
+        tools:layout="@layout/fragment_manage_seniors"/>
+
 </navigation>

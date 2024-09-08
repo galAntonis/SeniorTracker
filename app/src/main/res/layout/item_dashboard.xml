@@ -24,6 +24,7 @@
             android:layout_width="@dimen/regular_image_size"
             android:layout_height="@dimen/regular_image_size"
             android:scaleType="fitCenter"
+            android:tint="@color/deepOceanBlue"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
