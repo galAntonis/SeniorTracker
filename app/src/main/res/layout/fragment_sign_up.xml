@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    tools:context=".ui.login.LoginFragment">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:layout_marginBottom="50dp"
+        app:layout_constraintBottom_toTopOf="@+id/legal_notice_placeholder"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/welcome_placeholder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/login_title"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                tools:ignore="ImageContrastCheck" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/sign_in_prompt_placeholder"
+                android:layout_width="match_parent"
+                android:layout_height="36dp"
+                android:gravity="center_vertical"
+                android:text="@string/login_subtitle"
+                android:textColor="@color/neutral"
+                android:textSize="15sp"
+                tools:ignore="TextContrastCheck" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/email_edit_text_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_gravity="center_vertical"
+                app:endIconMode="custom"
+                app:endIconTint="@color/stGreenCheck"
+                app:errorEnabled="true">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/email_edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/edit_text_height"
+                    android:hint="@string/email_placeholder"
+                    android:inputType="number"
+                    android:textSize="@dimen/edit_text_text_size"
+                    tools:ignore="TextContrastCheck" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/password_edit_text_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                app:boxStrokeErrorColor="@color/stRedError"
+                app:endIconMode="custom"
+                app:endIconTint="@color/stGreenCheck"
+                app:errorEnabled="true"
+                app:errorIconTint="@color/stRedError"
+                app:errorTextColor="@color/stRedError"
+                app:strokeColor="@color/neutral">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/password_edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/edit_text_height"
+                    android:hint="@string/password_placeholder"
+                    android:inputType="textWebEmailAddress|textEmailAddress"
+                    android:textSize="13sp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/retype_password_edit_text_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                app:boxStrokeErrorColor="@color/stRedError"
+                app:endIconMode="custom"
+                app:endIconTint="@color/stGreenCheck"
+                app:errorEnabled="true"
+                app:errorIconTint="@color/stRedError"
+                app:errorTextColor="@color/stRedError"
+                app:strokeColor="@color/neutral">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/retype_password_edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/edit_text_height"
+                    android:hint="@string/retype_password_placeholder"
+                    android:inputType="textWebEmailAddress|textEmailAddress"
+                    android:textSize="13sp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/error_message_text_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:gravity="start"
+                android:text="@string/invalid_credentials"
+                android:textColor="@color/stRedError"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                android:visibility="gone" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/sign_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:enabled="false"
+                android:text="@string/signup" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/has_account"
+                    android:textColor="@color/neutral"
+                    android:textSize="12sp" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/login_text_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:gravity="center"
+                    android:text="@string/login"
+                    android:textColor="@color/stMain"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <TextView
+        android:id="@+id/legal_notice_placeholder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:gravity="center"
+        android:text="@string/notice"
+        android:textSize="11sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

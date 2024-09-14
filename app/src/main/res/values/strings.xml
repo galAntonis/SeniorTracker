@@ -18,5 +18,17 @@
     <string name="title_manage_places">Manage places</string>
     <string name="title_view_places">View places</string>
     <string name="title_manage_seniors">Manage seniors</string>
+    <string name="login_title">Welcome to SeniorTracker</string>
+    <string name="login_subtitle">Login or sign up</string>
+    <string name="email_placeholder">Email</string>
+    <string name="invalid_credentials">Invalid credentials</string>
+    <string name="password_placeholder">Password</string>
+    <string name="login">Login</string>
+    <string name="notice">By creating an account you are agreeing to the Terms of Use and Privacy Policy of SeniorTracker</string>
+    <string name="retype_password_placeholder">Re-type password</string>
+    <string name="signup">Sign up</string>
+    <string name="has_account">Already have an account?</string>
+    <string name="first_time">First time here?</string>
+
 
 </resources>

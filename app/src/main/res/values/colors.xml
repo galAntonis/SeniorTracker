@@ -5,10 +5,28 @@
     <color name="purple_700">#FF3700B3</color>
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
-    <color name="black">#000000</color>
-    <color name="white">#FFFFFF</color>
 
-    <color name="bgColor">#F0F3FA</color>
+
+    <color name="stBlack">#212529</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="neutral">#999999</color>
+    <color name="transparent">#00000000</color>
+    <color name="stMain">#6D3DCA</color>
+
+    <color name="stGray1">#F8F8F8</color>
+    <color name="stGray2">#5A5A5A</color>
+    <color name="stGray3">#C7C7C7</color>
+    <color name="stGray4">#E0E0E0</color>
+    <color name="stGray5">#EEEFF3</color>
+    <color name="stgray6">#F4F4F4</color>
+    <color name="stGray7">#CED0D9</color>
+    <color name="stGray8">#242731</color>
+    <color name="stRedError">#FF647C</color>
+    <color name="stGreenCheck">#00C48C</color>
+    <color name="mtrl_textinput_default_box_stroke_color">#EEEFF3</color>
+
+
+    <color name="bgColor">#F6F7FA</color>
     <color name="gray">#D5DEEF</color>
     <color name="lightSkyBlue">#B1C9EF</color>
     <color name="softBlue">#8AAEE0</color>
