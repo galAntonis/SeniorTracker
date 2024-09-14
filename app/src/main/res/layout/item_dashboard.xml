@@ -24,7 +24,7 @@
             android:layout_width="@dimen/regular_image_size"
             android:layout_height="@dimen/regular_image_size"
             android:scaleType="fitCenter"
-            android:tint="@color/deepOceanBlue"
+            android:tint="@color/stMain"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -32,7 +32,7 @@
             android:id="@+id/title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/black"
+            android:textColor="@color/stBlack"
             android:textSize="@dimen/title_text_size"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"

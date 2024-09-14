@@ -12,6 +12,8 @@
     <color name="neutral">#999999</color>
     <color name="transparent">#00000000</color>
     <color name="stMain">#6D3DCA</color>
+    <color name="stMainSecondary">#552CFF</color>
+
 
     <color name="stGray1">#F8F8F8</color>
     <color name="stGray2">#5A5A5A</color>
@@ -28,8 +30,5 @@
 
     <color name="bgColor">#F6F7FA</color>
     <color name="gray">#D5DEEF</color>
-    <color name="lightSkyBlue">#B1C9EF</color>
-    <color name="softBlue">#8AAEE0</color>
-    <color name="skyBlue">#638ECB</color>
-    <color name="deepOceanBlue">#395886</color>
+
 </resources>

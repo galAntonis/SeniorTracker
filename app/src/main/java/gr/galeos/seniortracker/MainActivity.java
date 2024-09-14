@@ -2,6 +2,7 @@ package gr.galeos.seniortracker;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -26,6 +27,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         BottomNavigationView navView = findViewById(R.id.nav_view);
+        // Set Toolbar
+        setSupportActionBar(binding.toolbar);
+
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         appBarConfiguration = new AppBarConfiguration.Builder(
@@ -34,7 +38,27 @@ public class MainActivity extends AppCompatActivity {
         navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
+
+        destinationListener(navController);
     }
+
+    private void destinationListener(@NonNull NavController navController) {
+        navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
+            if (getSupportActionBar() != null) {  // Check if the ActionBar is available
+                if (destination.getId() == R.id.fragment_home) {
+                    getSupportActionBar().hide();
+                } else if (destination.getId() == R.id.fragment_dashboard) {
+                    getSupportActionBar().show();
+                    getSupportActionBar().setTitle("Dashboard");
+                } else if (destination.getId() == R.id.fragment_notifications) {
+                    getSupportActionBar().show();
+                    getSupportActionBar().setTitle("Notifications");
+                }
+            }
+        });
+    }
+
+
 
     @Override
     public boolean onSupportNavigateUp() {
