@@ -1,6 +1,8 @@
 package gr.galeos.seniortracker.ui.home;
 
 
+import static androidx.navigation.fragment.FragmentKt.findNavController;
+
 import android.Manifest;
 import android.Manifest.permission;
 import android.annotation.SuppressLint;
@@ -25,6 +27,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import gr.galeos.seniortracker.R;
 import gr.galeos.seniortracker.databinding.FragmentHomeBinding;
 import gr.galeos.seniortracker.utils.PermissionUtils;
+import gr.galeos.seniortracker.utils.SharedPreferencesUtils;
 
 
 
@@ -42,6 +45,12 @@ public class HomeFragment extends Fragment implements
 
     private GoogleMap map;
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        SharedPreferencesUtils.initSharedPreferences(requireContext());
+    }
+
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         binding = FragmentHomeBinding.inflate(inflater, container, false);
@@ -52,6 +61,9 @@ public class HomeFragment extends Fragment implements
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
         super.onViewCreated(view, savedInstanceState);
+        if (!SharedPreferencesUtils.isSessionIdValid() && !SharedPreferencesUtils.isLoginSkipped()) {
+            findNavController(this).navigate(R.id.action_navigate_from_home_to_signup);
+        }
         setupMap();
     }
 

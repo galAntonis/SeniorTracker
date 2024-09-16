@@ -1,6 +1,7 @@
 plugins {
     id("com.android.application")
     id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -94,6 +95,12 @@ dependencies {
     implementation("com.mapbox.navigationcore:ui-components:3.3.0-rc.1")
     implementation("com.mapbox.navigationcore:android:3.3.0-rc.1")
 
+    //Firebase
+    implementation("com.google.firebase:firebase-auth:23.0.0")
+
+    // Coroutines
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.2")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.2")
 
     implementation("com.google.android.gms:play-services-maps:19.0.0")
 

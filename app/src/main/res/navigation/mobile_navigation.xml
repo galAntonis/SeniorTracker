@@ -5,11 +5,58 @@
     android:id="@+id/mobile_navigation"
     app:startDestination="@+id/fragment_home">
 
+    <fragment android:id="@+id/fragment_signup"
+        android:name="gr.galeos.seniortracker.ui.signup.SignUpFragment"
+        android:label="fragment_signup_fragment"
+        tools:layout="@layout/fragment_sign_up" >
+
+        <action
+            android:id="@+id/action_navigate_from_signup_to_login"
+            app:destination="@id/fragment_login"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+
+    </fragment>
+
+    <fragment android:id="@+id/fragment_login"
+        android:name="gr.galeos.seniortracker.ui.login.LoginFragment"
+        android:label="fragment_signup_fragment"
+        tools:layout="@layout/fragment_login" >
+
+        <action
+            android:id="@+id/action_navigate_from_login_to_home"
+            app:destination="@id/fragment_home"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+
+        <action
+            android:id="@+id/action_navigate_from_login_to_signup"
+            app:destination="@id/fragment_signup"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+
+    </fragment>
+
     <fragment
         android:id="@+id/fragment_home"
         android:name="gr.galeos.seniortracker.ui.home.HomeFragment"
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home" >
+
+        <action
+            android:id="@+id/action_navigate_from_home_to_signup"
+            app:destination="@id/fragment_signup"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
+
 
         <action
             android:id="@+id/action_navigate_from_home_to_dashboard"

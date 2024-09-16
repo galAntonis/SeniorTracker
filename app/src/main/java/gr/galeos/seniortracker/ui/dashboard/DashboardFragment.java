@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
 import gr.galeos.seniortracker.R;
@@ -17,6 +18,7 @@ import gr.galeos.seniortracker.databinding.FragmentDashboardBinding;
 public class DashboardFragment extends Fragment {
 
     private FragmentDashboardBinding binding;
+    private DashboardViewModel dashboardViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -29,6 +31,7 @@ public class DashboardFragment extends Fragment {
 
         super.onViewCreated(view, savedInstanceState);
         loadUI();
+        setupViewModel();
         setClickListeners();
     }
 
@@ -44,6 +47,12 @@ public class DashboardFragment extends Fragment {
         binding.manageSeniorsTile.image.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.ic_manage_seniors, null));
         binding.settingsTile.title.setText(getString(R.string.dashboard_settings));
         binding.settingsTile.image.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.ic_settings, null));
+    }
+
+    private void setupViewModel() {
+
+        dashboardViewModel =
+                new ViewModelProvider(this).get(DashboardViewModel.class);
     }
 
     private void setClickListeners() {

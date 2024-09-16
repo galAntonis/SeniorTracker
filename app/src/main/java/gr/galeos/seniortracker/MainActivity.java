@@ -53,6 +53,8 @@ public class MainActivity extends AppCompatActivity {
                 } else if (destination.getId() == R.id.fragment_notifications) {
                     getSupportActionBar().show();
                     getSupportActionBar().setTitle("Notifications");
+                } else if (destination.getId() == R.id.fragment_signup) {
+                    getSupportActionBar().hide();
                 }
             }
         });

@@ -46,18 +46,17 @@
                 android:id="@+id/email_edit_text_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
                 android:layout_gravity="center_vertical"
+                android:layout_marginTop="20dp"
                 app:endIconMode="custom"
-                app:endIconTint="@color/stGreenCheck"
-                app:errorEnabled="true">
+                app:endIconTint="@color/stGreenCheck">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/email_edit_text"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/edit_text_height"
                     android:hint="@string/email_placeholder"
-                    android:inputType="number"
+                    android:inputType="textWebEmailAddress|textEmailAddress"
                     android:textSize="@dimen/edit_text_text_size"
                     tools:ignore="TextContrastCheck" />
 
@@ -67,14 +66,11 @@
                 android:id="@+id/password_edit_text_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
                 android:layout_gravity="center"
                 android:gravity="center"
                 app:boxStrokeErrorColor="@color/stRedError"
-                app:endIconMode="custom"
-                app:endIconTint="@color/stGreenCheck"
-                app:errorEnabled="true"
-                app:errorIconTint="@color/stRedError"
-                app:errorTextColor="@color/stRedError"
+                app:endIconMode="password_toggle"
                 app:strokeColor="@color/neutral">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -82,7 +78,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/edit_text_height"
                     android:hint="@string/password_placeholder"
-                    android:inputType="textWebEmailAddress|textEmailAddress"
+                    android:inputType="textWebPassword|textPassword"
                     android:textSize="13sp" />
 
             </com.google.android.material.textfield.TextInputLayout>
