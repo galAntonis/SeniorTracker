@@ -13,6 +13,9 @@
     <dimen name="subtitle_text_size">14sp</dimen>
 
     <dimen name="fragment_padding">16dp</dimen>
+    <dimen name="between_edit_text_margin">16dp</dimen>
+
+    <dimen name="edit_text_title_size">15sp</dimen>
     <dimen name="edit_text_text_size">13sp</dimen>
     <dimen name="edit_text_height">50dp</dimen>
     <dimen name="error_text_size">11sp</dimen>

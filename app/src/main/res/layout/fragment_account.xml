@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.account.AccountFragment">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/fragment_padding">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/welcome_placeholder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/login_title"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                tools:ignore="ImageContrastCheck" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/sign_in_prompt_placeholder"
+                android:layout_width="match_parent"
+                android:layout_height="36dp"
+                android:gravity="center_vertical"
+                android:text="@string/account_prompt"
+                android:textColor="@color/neutral"
+                android:textSize="15sp"
+                tools:ignore="TextContrastCheck" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/between_edit_text_margin"
+                android:text="@string/name"
+                android:textSize="@dimen/edit_text_title_size" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/name_text_input_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                app:strokeColor="@color/neutral">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/name_edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/edit_text_height"
+                    android:enabled="true"
+                    android:inputType="text"
+                    android:textSize="@dimen/edit_text_text_size" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/between_edit_text_margin"
+                android:text="@string/surname"
+                android:textSize="@dimen/edit_text_title_size" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/surname_text_input_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                app:strokeColor="@color/neutral">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/surname_edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/edit_text_height"
+                    android:enabled="true"
+                    android:inputType="text"
+                    android:textSize="@dimen/edit_text_text_size" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/between_edit_text_margin"
+                android:text="@string/phone_number_placeholder"
+                android:textSize="@dimen/edit_text_title_size" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/phone_text_input_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                app:strokeColor="@color/neutral">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/phone_edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/edit_text_height"
+                    android:enabled="true"
+                    android:inputType="phone||number"
+                    android:textSize="13sp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/between_edit_text_margin"
+                android:text="@string/email"
+                android:textSize="@dimen/edit_text_title_size" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/email_text_input_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                app:strokeColor="@color/neutral">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/email_edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/edit_text_height"
+                    android:enabled="true"
+                    android:inputType="textWebEmailAddress||textEmailAddress"
+                    android:textSize="@dimen/edit_text_text_size" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/between_edit_text_margin"
+                android:text="@string/account_type"
+                android:textSize="@dimen/edit_text_title_size" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/choose_plan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="12dp"
+                android:gravity="center"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="0dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvInstaStart"
+                app:strokeColor="#CED0D9"
+                app:strokeWidth="1dp">
+
+                <RadioGroup
+                    android:id="@+id/radioGroup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@android:color/transparent"
+                    android:checkedButton="@+id/rbSupervisor"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:padding="8dp"
+                    android:textAlignment="center">
+
+                    <com.google.android.material.radiobutton.MaterialRadioButton
+                        android:id="@+id/rbSupervisor"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/radio_selector_account_type"
+                        android:button="@android:color/transparent"
+                        android:text="@string/supervisor"
+                        android:textAlignment="inherit"
+                        android:textColor="@drawable/radio_text_selector_account_type"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <com.google.android.material.radiobutton.MaterialRadioButton
+                        android:id="@+id/rbSenior"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/radio_selector_account_type"
+                        android:button="@android:color/transparent"
+                        android:gravity="center"
+                        android:text="@string/senior"
+                        android:textAlignment="inherit"
+                        android:textColor="@drawable/radio_text_selector_account_type"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                </RadioGroup>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/sign_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:enabled="true"
+                android:text="@string/create_account" />
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</LinearLayout>

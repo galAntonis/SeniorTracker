@@ -29,6 +29,15 @@
     <string name="signup">Sign up</string>
     <string name="has_account">Already have an account?</string>
     <string name="first_time">First time here?</string>
+    <string name="name">Name</string>
+    <string name="surname">Surname</string>
+    <string name="phone_number_placeholder">Phone number</string>
+    <string name="email">Email</string>
+    <string name="create_account">Activate account</string>
+    <string name="account_prompt">Fill the fields below to activate account</string>
+    <string name="supervisor">Supervisor</string>
+    <string name="senior">Senior</string>
+    <string name="account_type">Choose your account type</string>
 
 
 </resources>
