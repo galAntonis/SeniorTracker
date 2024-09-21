@@ -56,6 +56,7 @@ secrets {
 
 dependencies {
 
+    implementation("com.google.firebase:firebase-firestore:25.1.0")
     val activityVersion = "1.8.2"
     val androidCoreVersion = "1.12.0"
     val appCompatVersion = "1.6.1"

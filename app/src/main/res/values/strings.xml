@@ -38,6 +38,7 @@
     <string name="supervisor">Supervisor</string>
     <string name="senior">Senior</string>
     <string name="account_type">Choose your account type</string>
+    <string name="title_maps">Maps</string>
 
 
 </resources>

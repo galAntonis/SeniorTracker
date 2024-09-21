@@ -46,7 +46,7 @@ public class LoginFragment extends Fragment {
         viewModel.getToken().observe(getViewLifecycleOwner(), token -> {
             if (token != null) {
                 // Navigate to the main activity and save token on sharedPreferences
-                Navigation.findNavController(binding.getRoot()).navigate(R.id.action_navigate_from_login_to_home);
+                Navigation.findNavController(binding.getRoot()).navigate(R.id.action_navigate_from_login_to_account);
                 SharedPreferencesUtils.saveSessionId(token);
             } else {
                 binding.errorMessageTextView.setVisibility(View.VISIBLE);

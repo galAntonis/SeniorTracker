@@ -8,13 +8,13 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class LoginViewModel extends ViewModel {
 
-    private MutableLiveData<String> _accessToken = new MutableLiveData<>();
+    private final MutableLiveData<String> _accessToken = new MutableLiveData<>();
 
     public LiveData<String> getToken() {
         return _accessToken;
     }
 
-    private FirebaseAuth firebaseAuth;
+    private final FirebaseAuth firebaseAuth;
 
     public LoginViewModel() {
         firebaseAuth = FirebaseAuth.getInstance();
@@ -24,7 +24,7 @@ public class LoginViewModel extends ViewModel {
         firebaseAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
-                        _accessToken.postValue(firebaseAuth.getAccessToken(false).getResult().getToken());
+                        _accessToken.postValue(firebaseAuth.getUid());
                     } else {
                         _accessToken.postValue(null);
                     }

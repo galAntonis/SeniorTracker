@@ -14,11 +14,22 @@ import androidx.navigation.Navigation;
 
 import gr.galeos.seniortracker.R;
 import gr.galeos.seniortracker.databinding.FragmentSignUpBinding;
+import gr.galeos.seniortracker.utils.SharedPreferencesUtils;
 
 public class SignUpFragment extends Fragment {
 
     private FragmentSignUpBinding binding;
     private SignUpViewModel viewModel;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        SharedPreferencesUtils.initSharedPreferences(requireContext());
+
+        if (SharedPreferencesUtils.isSessionIdValid()){
+            Navigation.findNavController(binding.getRoot()).navigate(R.id.action_navigate_from_signup_to_home);
+        }
+    }
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 

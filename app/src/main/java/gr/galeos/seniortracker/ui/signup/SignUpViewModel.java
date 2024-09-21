@@ -8,12 +8,12 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class SignUpViewModel extends ViewModel {
 
-    private MutableLiveData<Boolean> _signup = new MutableLiveData<>();
+    private final MutableLiveData<Boolean> _signup = new MutableLiveData<>();
     public LiveData<Boolean> getSignup() {
         return _signup;
     }
 
-    private FirebaseAuth firebaseAuth;
+    private final FirebaseAuth firebaseAuth;
 
     public SignUpViewModel() {
         firebaseAuth = FirebaseAuth.getInstance();

@@ -14,11 +14,12 @@ import androidx.navigation.Navigation;
 
 import gr.galeos.seniortracker.R;
 import gr.galeos.seniortracker.databinding.FragmentDashboardBinding;
+import gr.galeos.seniortracker.utils.SharedPreferencesUtils;
 
 public class DashboardFragment extends Fragment {
 
     private FragmentDashboardBinding binding;
-    private DashboardViewModel dashboardViewModel;
+    private DashboardViewModel viewmodel;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -51,7 +52,7 @@ public class DashboardFragment extends Fragment {
 
     private void setupViewModel() {
 
-        dashboardViewModel =
+        viewmodel =
                 new ViewModelProvider(this).get(DashboardViewModel.class);
     }
 
@@ -61,7 +62,15 @@ public class DashboardFragment extends Fragment {
         binding.viewFencesTile.getRoot().setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.action_navigation_dashboard_to_navigation_view_places));
         binding.manageFencesTile.getRoot().setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.action_navigation_dashboard_to_navigation_manage_places));
         binding.manageSeniorsTile.getRoot().setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.action_navigation_dashboard_to_navigation_manage_seniors));
-        binding.settingsTile.getRoot().setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.action_navigation_dashboard_to_navigation_settings));
+        //binding.settingsTile.getRoot().setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.action_navigation_dashboard_to_navigation_settings));
+        binding.settingsTile.getRoot().setOnClickListener(
+                v -> {
+                    SharedPreferencesUtils.invalidateSessionId();
+
+                    Navigation.findNavController(v).navigate(R.id.action_navigation_dashboard_to_login);
+
+                }
+        );
     }
 
     @Override
