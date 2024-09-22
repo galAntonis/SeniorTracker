@@ -12,8 +12,12 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
+import org.greenrobot.eventbus.EventBus;
+
 import gr.galeos.seniortracker.R;
 import gr.galeos.seniortracker.databinding.FragmentHomeBinding;
+import gr.galeos.seniortracker.utils.Constants;
+import gr.galeos.seniortracker.utils.MessageEvent;
 import gr.galeos.seniortracker.utils.SharedPreferencesUtils;
 
 
@@ -61,6 +65,7 @@ public class HomeFragment extends Fragment {
                 binding.includeLatestActivity.getRoot().setVisibility(View.GONE);
                 binding.includeYourSeniors.getRoot().setVisibility(View.GONE);
                 binding.loggedOutLayout.getRoot().setVisibility(View.VISIBLE);
+                EventBus.getDefault().post(new MessageEvent(Constants.USER_LOGOUT));
             }
     }
 
