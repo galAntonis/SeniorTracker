@@ -1,5 +1,6 @@
 package gr.galeos.seniortracker;
 
+
 import android.os.Bundle;
 import android.view.View;
 
@@ -12,13 +13,23 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
+import java.util.Objects;
+
 import gr.galeos.seniortracker.databinding.ActivityMainBinding;
+import gr.galeos.seniortracker.utils.Constants;
+import gr.galeos.seniortracker.utils.MessageEvent;
+import gr.galeos.seniortracker.utils.SharedPreferencesUtils;
 
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
     private AppBarConfiguration appBarConfiguration;
     private NavController navController;
+    private MainViewModel viewModel;
     BottomNavigationView navView;
 
     @Override
@@ -35,22 +46,27 @@ public class MainActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.fragment_home,R.id.fragment_dashboard,R.id.fragment_maps, R.id.fragment_notifications)
+                R.id.fragment_home, R.id.fragment_dashboard, R.id.fragment_maps, R.id.fragment_notifications)
                 .build();
         navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
 
+        SharedPreferencesUtils.initSharedPreferences(this.getApplicationContext());
+
         destinationListener(navController);
+
+        //subscribeToLoginEvent();
+
     }
+
 
     private void destinationListener(@NonNull NavController navController) {
         navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
             if (getSupportActionBar() != null) {  // Check if the ActionBar is available
-                if (destination.getId() == R.id.fragment_home) {
+               if(destination.getId() == R.id.fragment_home){
                     navView.setVisibility(View.VISIBLE);
-                    getSupportActionBar().show();
-                    getSupportActionBar().setTitle("Home");
+                    getSupportActionBar().hide();
                 }else if (destination.getId() == R.id.fragment_maps) {
                     navView.setVisibility(View.VISIBLE);
                     getSupportActionBar().hide();
@@ -71,16 +87,47 @@ public class MainActivity extends AppCompatActivity {
                 } else if (destination.getId() == R.id.fragment_account) {
                     navView.setVisibility(View.GONE);
                     getSupportActionBar().hide();
-
                 }
             }
         });
     }
 
-
-
     @Override
     public boolean onSupportNavigateUp() {
         return navController.navigateUp();
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(MessageEvent event) {
+        if (Objects.equals(event.message, Constants.USER_LOGGED_IN)){
+            showServices();
+        } else {
+            hideServices();
+        }
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onStop() {
+        EventBus.getDefault().unregister(this);
+        super.onStop();
+    }
+
+    private void showServices() {
+        navView.getMenu().findItem(R.id.fragment_dashboard).setEnabled(true);
+        navView.getMenu().findItem(R.id.fragment_maps).setEnabled(true);
+        navView.getMenu().findItem(R.id.fragment_notifications).setEnabled(true);
+        navView.setVisibility(View.VISIBLE);
+    }
+
+    private void hideServices() {
+        navView.getMenu().findItem(R.id.fragment_dashboard).setEnabled(false);
+        navView.getMenu().findItem(R.id.fragment_maps).setEnabled(false);
+        navView.getMenu().findItem(R.id.fragment_notifications).setEnabled(false);
     }
 }

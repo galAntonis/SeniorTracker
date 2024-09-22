@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">SeniorTracker</string>
+    <string name="welcome_home_title">Welcome to SeniorTracker</string>
+    <string name="welcome_home_subtitle">Keep your loved ones Safe and Secure</string>
+
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
@@ -39,6 +42,8 @@
     <string name="senior">Senior</string>
     <string name="account_type">Choose your account type</string>
     <string name="title_maps">Maps</string>
+    <string name="empty_fields">You have some empty fields</string>
+    <string name="login_failed">Login failed</string>
 
 
 </resources>

@@ -12,8 +12,12 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
+import org.greenrobot.eventbus.EventBus;
+
 import gr.galeos.seniortracker.R;
 import gr.galeos.seniortracker.databinding.FragmentDashboardBinding;
+import gr.galeos.seniortracker.utils.Constants;
+import gr.galeos.seniortracker.utils.MessageEvent;
 import gr.galeos.seniortracker.utils.SharedPreferencesUtils;
 
 public class DashboardFragment extends Fragment {
@@ -65,10 +69,9 @@ public class DashboardFragment extends Fragment {
         //binding.settingsTile.getRoot().setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.action_navigation_dashboard_to_navigation_settings));
         binding.settingsTile.getRoot().setOnClickListener(
                 v -> {
+                    Navigation.findNavController(v).navigate(R.id.action_navigation_dashboard_to_logout_state);
+                    EventBus.getDefault().post(new MessageEvent(Constants.USER_LOGOUT));
                     SharedPreferencesUtils.invalidateSessionId();
-
-                    Navigation.findNavController(v).navigate(R.id.action_navigation_dashboard_to_login);
-
                 }
         );
     }

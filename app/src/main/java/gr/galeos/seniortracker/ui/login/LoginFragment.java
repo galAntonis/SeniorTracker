@@ -11,8 +11,12 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
+import org.greenrobot.eventbus.EventBus;
+
 import gr.galeos.seniortracker.R;
 import gr.galeos.seniortracker.databinding.FragmentLoginBinding;
+import gr.galeos.seniortracker.utils.Constants;
+import gr.galeos.seniortracker.utils.MessageEvent;
 import gr.galeos.seniortracker.utils.SharedPreferencesUtils;
 
 public class LoginFragment extends Fragment {
@@ -46,11 +50,13 @@ public class LoginFragment extends Fragment {
         viewModel.getToken().observe(getViewLifecycleOwner(), token -> {
             if (token != null) {
                 // Navigate to the main activity and save token on sharedPreferences
-                Navigation.findNavController(binding.getRoot()).navigate(R.id.action_navigate_from_login_to_account);
+                Navigation.findNavController(binding.getRoot()).navigate(R.id.action_navigate_from_login_to_home);
+                //AuthenticationEventBus.publish(Constants.USER_LOGGED_IN);
+                EventBus.getDefault().post(new MessageEvent(Constants.USER_LOGGED_IN));
                 SharedPreferencesUtils.saveSessionId(token);
             } else {
                 binding.errorMessageTextView.setVisibility(View.VISIBLE);
-                binding.errorMessageTextView.setText("Login failed");
+                binding.errorMessageTextView.setText(R.string.login_failed);
             }
         });
     }
@@ -63,7 +69,7 @@ public class LoginFragment extends Fragment {
                 viewModel.login(email, password);
             }else{
                 binding.errorMessageTextView.setVisibility(View.VISIBLE);
-                binding.errorMessageTextView.setText("You have some empty fields");
+                binding.errorMessageTextView.setText(R.string.empty_fields);
             }
         });
 

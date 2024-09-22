@@ -64,7 +64,9 @@
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"/>
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@id/fragment_home"
+            app:popUpToInclusive="true"/>
 
         <action
             android:id="@+id/action_navigate_from_login_to_signup"
@@ -105,6 +107,16 @@
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+
+        <action
+            android:id="@+id/action_navigate_from_home_to_login"
+            app:destination="@id/fragment_login"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
+            app:popUpTo="@id/fragment_login"
+            app:popUpToInclusive="true"/>
 
     </fragment>
 
@@ -163,6 +175,16 @@
             app:popExitAnim="@anim/slide_out_right"
             app:popUpTo="@id/fragment_login"
             app:popUpToInclusive="false"/>
+
+        <action
+            android:id="@+id/action_navigation_dashboard_to_logout_state"
+            app:destination="@id/fragment_home"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@id/fragment_home"
+            app:popUpToInclusive="true"/>
     </fragment>
 
     <fragment

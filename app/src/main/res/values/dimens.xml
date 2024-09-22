@@ -14,6 +14,7 @@
 
     <dimen name="fragment_padding">16dp</dimen>
     <dimen name="between_edit_text_margin">16dp</dimen>
+    <dimen name="between_elements_margin">24dp</dimen>
 
     <dimen name="edit_text_title_size">15sp</dimen>
     <dimen name="edit_text_text_size">13sp</dimen>

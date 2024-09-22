@@ -9,6 +9,7 @@ import com.google.firebase.auth.FirebaseAuth;
 public class SignUpViewModel extends ViewModel {
 
     private final MutableLiveData<Boolean> _signup = new MutableLiveData<>();
+
     public LiveData<Boolean> getSignup() {
         return _signup;
     }
@@ -20,6 +21,7 @@ public class SignUpViewModel extends ViewModel {
     }
 
     public void signUp(String email, String password) {
+
         firebaseAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
