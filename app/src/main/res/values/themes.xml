@@ -1,13 +1,117 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.SeniorTracker" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
-        <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/deepOceanBlue</item>
-        <item name="colorPrimaryVariant">@color/skyBlue</item>
+    <style name="Theme.SeniorTracker" parent="Theme.Material3.Light.NoActionBar">
+        <item name="colorPrimary">@color/stMain</item>
         <item name="colorOnPrimary">@color/white</item>
+        <item name="colorPrimaryVariant">#FF741A</item>
+        <item name="colorOnBackground">@color/white</item>
+
+        <item name="colorSecondary">@color/stMainSecondary</item>
+        <item name="colorOnSecondary">@color/white</item>
+        <item name="colorSecondaryVariant">#6641FF</item>
+
+        <item name="colorError">@color/stRedError</item>
+        <item name="colorErrorContainer">@color/stRedError</item>
+        <item name="colorOnError">@color/white</item>
+
+        <item name="colorSurface">@color/white</item>
+        <item name="colorOnSurface">@color/stBlack</item>
+
+        <item name="colorAccent">@color/stBlack</item>
+        <item name="android:windowBackground">@color/bgColor</item>
 
         <!-- Status bar color. -->
-        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
-        <!-- Customize your theme here. -->
+        <item name="android:statusBarColor">@color/white</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="23">true</item>
+
+        <item name="textInputStyle">@style/Widget.App.TextInputLayout</item>
+        <item name="borderlessButtonStyle">@style/Widget.App.Button.TextButton</item>
+        <item name="materialButtonOutlinedStyle">@style/Widget.App.Button.OutlinedButton</item>
+        <item name="materialButtonStyle">@style/Widget.App.Button</item>
+
+        <item name="android:windowSplashScreenAnimatedIcon" tools:targetApi="31">
+            @android:color/transparent
+        </item>
+
+        <item name="materialCardViewStyle">@style/StCardView</item>
+
+        <item name="bottomNavigationStyle">@style/Widget.MyApp.BottomNavigationView</item>
+
+    </style>
+
+    <style name="Widget.App.TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxStrokeColor">@color/stMain</item>
+        <item name="boxStrokeWidth">2dp</item>
+        <item name="boxStrokeErrorColor">@color/stRedError</item>
+        <item name="boxBackgroundColor">@color/white</item>
+        <item name="android:textColorHint">@color/stGray3</item>
+        <item name="boxCornerRadiusTopStart">8dp</item>
+        <item name="boxCornerRadiusTopEnd">8dp</item>
+        <item name="boxCornerRadiusBottomStart">8dp</item>
+        <item name="boxCornerRadiusBottomEnd">8dp</item>
+    </style>
+
+    <style name="Widget.App.Button.TextButton" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.Button.TextButton</item>
+        <item name="shapeAppearance">@style/ShapeAppearance.App.MediumComponent</item>
+    </style>
+
+    <style name="Widget.App.Button.OutlinedButton" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.Button.TextButton</item>
+    </style>
+
+    <style name="Widget.App.Button" parent="Widget.MaterialComponents.Button">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.Button</item>
+        <item name="android:textAppearance">@style/MaterialAlertDialog.Material3.Body.Text</item>
+        <item name="android:textSize">16sp</item>
+        <item name="cornerRadius">100dp</item>
+        <item name="android:paddingTop">16dp</item>
+        <item name="android:paddingBottom">16dp</item>
+        <item name="android:paddingStart">24dp</item>
+        <item name="android:paddingEnd">24dp</item>
+    </style>
+
+    <style name="ThemeOverlay.App.Button.TextButton" parent="">
+        <item name="colorPrimary">@color/stMain</item>
+    </style>
+
+    <style name="ThemeOverlay.App.Button" parent="">
+        <item name="colorPrimary">@color/stMain</item>
+        <item name="colorOnPrimary">@color/white</item>
+    </style>
+
+    <style name="ShapeAppearance.App.MediumComponent" parent="ShapeAppearance.MaterialComponents.MediumComponent">
+        <item name="cornerSize">0dp</item>
+    </style>
+
+    <style name="Widget.MyApp.BottomNavigationView" parent="Widget.MaterialComponents.BottomNavigationView">
+        <item name="android:colorPrimary">@color/white</item>
+        <item name="backgroundColor">@color/white</item>
+        <item name="itemTextColor">@drawable/navbar_item_tint</item>
+        <item name="itemIconTint">@drawable/navbar_item_tint</item>
+        <item name="itemRippleColor">@null</item>
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.BottomNavigationView</item>
+    </style>
+
+    <style name="ThemeOverlay.App.BottomNavigationView" parent="">
+        <item name="colorPrimary">@color/white</item>
+        <item name="colorOnPrimary">@color/stBlack</item>
+    </style>
+
+    <style name="toolbarTitle" parent="TextAppearance.MaterialComponents.Headline6">
+        <item name="android:textColor">@color/stBlack</item>
+        <item name="android:textSize">22sp</item>
+    </style>
+
+    <style name="StCardView" parent="Widget.MaterialComponents.CardView">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.Card</item>
+        <item name="cardCornerRadius">20dp</item>
+        <item name="cardElevation">12dp</item>
+    </style>
+
+    <style name="ThemeOverlay.App.Card" parent="">
+        <item name="colorPrimary">@color/white</item>
+        <item name="colorSurface">@color/white</item>
+        <item name="colorOnSurface">@color/stBlack</item>
     </style>
 </resources>

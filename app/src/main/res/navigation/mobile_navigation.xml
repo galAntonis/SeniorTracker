@@ -5,11 +5,120 @@
     android:id="@+id/mobile_navigation"
     app:startDestination="@+id/fragment_home">
 
+    <fragment android:id="@+id/fragment_signup"
+        android:name="gr.galeos.seniortracker.ui.signup.SignUpFragment"
+        android:label="fragment_signup_fragment"
+        tools:layout="@layout/fragment_sign_up" >
+
+        <action
+            android:id="@+id/action_navigate_from_signup_to_login"
+            app:destination="@id/fragment_login"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+
+        <action
+            android:id="@+id/action_navigate_from_signup_to_account"
+            app:destination="@id/fragment_account"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+
+        <action
+            android:id="@+id/action_navigate_from_signup_to_home"
+            app:destination="@id/fragment_home"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@id/fragment_home"
+            app:popUpToInclusive="true"/>
+
+    </fragment>
+
+    <fragment android:id="@+id/fragment_account"
+        android:name="gr.galeos.seniortracker.ui.account.AccountFragment"
+        android:label="fragment_account"
+        tools:layout="@layout/fragment_account" >
+
+        <action
+            android:id="@+id/action_navigate_from_account_to_home"
+            app:destination="@id/fragment_home"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+
+    </fragment>
+
+    <fragment android:id="@+id/fragment_login"
+        android:name="gr.galeos.seniortracker.ui.login.LoginFragment"
+        android:label="fragment_signup_fragment"
+        tools:layout="@layout/fragment_login" >
+
+        <action
+            android:id="@+id/action_navigate_from_login_to_home"
+            app:destination="@id/fragment_home"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@id/fragment_home"
+            app:popUpToInclusive="true"/>
+
+        <action
+            android:id="@+id/action_navigate_from_login_to_signup"
+            app:destination="@id/fragment_signup"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+
+        <action
+            android:id="@+id/action_navigate_from_login_to_account"
+            app:destination="@id/fragment_account"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+
+    </fragment>
+
     <fragment
         android:id="@+id/fragment_home"
         android:name="gr.galeos.seniortracker.ui.home.HomeFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+
+        <action
+            android:id="@+id/action_navigate_from_home_to_dashboard"
+            app:destination="@id/fragment_dashboard"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
+
+        <action
+            android:id="@+id/action_navigate_from_home_to_notifications"
+            app:destination="@id/fragment_notifications"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+
+        <action
+            android:id="@+id/action_navigate_from_home_to_login"
+            app:destination="@id/fragment_login"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
+            app:popUpTo="@id/fragment_login"
+            app:popUpToInclusive="true"/>
+
+    </fragment>
 
     <fragment
         android:id="@+id/fragment_dashboard"
@@ -19,24 +128,53 @@
 
         <action
             android:id="@+id/action_navigation_dashboard_to_navigation_settings"
-            app:destination="@id/fragment_settings" />
+            app:destination="@id/fragment_settings"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
 
         <action
             android:id="@+id/action_navigation_dashboard_to_navigation_history"
-            app:destination="@id/fragment_history" />
+            app:destination="@id/fragment_history"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
 
         <action
             android:id="@+id/action_navigation_dashboard_to_navigation_view_places"
-            app:destination="@id/fragment_view_places" />
+            app:destination="@id/fragment_view_places"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
 
         <action
             android:id="@+id/action_navigation_dashboard_to_navigation_manage_places"
-            app:destination="@id/fragment_manage_places" />
+            app:destination="@id/fragment_manage_places"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
 
         <action
             android:id="@+id/action_navigation_dashboard_to_navigation_manage_seniors"
-            app:destination="@id/fragment_manage_seniors"/>
+            app:destination="@id/fragment_manage_seniors"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
 
+        <action
+            android:id="@+id/action_navigation_dashboard_to_logout_state"
+            app:destination="@id/fragment_home"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@id/fragment_home"
+            app:popUpToInclusive="true"/>
     </fragment>
 
     <fragment
@@ -49,7 +187,27 @@
         android:id="@+id/fragment_settings"
         android:name="gr.galeos.seniortracker.ui.settings.SettingsFragment"
         android:label="@string/title_settings"
-        tools:layout="@layout/fragment_settings" />
+        tools:layout="@layout/fragment_settings" >
+
+        <action
+            android:id="@+id/action_navigation_settings_to_home"
+            app:destination="@id/fragment_home"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
+            app:popUpTo="@id/fragment_home"
+            app:popUpToInclusive="true"/>
+
+        <action
+            android:id="@+id/action_navigation_settings_to_account"
+            app:destination="@id/fragment_account"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
+    </fragment>
 
     <fragment
         android:id="@+id/fragment_history"
@@ -74,5 +232,12 @@
         android:name="gr.galeos.seniortracker.ui.manageSeniors.ManageSeniorsFragment"
         android:label="@string/title_manage_seniors"
         tools:layout="@layout/fragment_manage_seniors"/>
+
+    <fragment
+        android:id="@+id/fragment_maps"
+        android:name="gr.galeos.seniortracker.ui.maps.MapsFragment"
+        android:label="@string/title_maps"
+        tools:layout="@layout/fragment_maps" />
+
 
 </navigation>

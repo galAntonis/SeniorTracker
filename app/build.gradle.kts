@@ -1,6 +1,7 @@
 plugins {
     id("com.android.application")
     id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -55,6 +56,7 @@ secrets {
 
 dependencies {
 
+    implementation("com.google.firebase:firebase-firestore:25.1.0")
     val activityVersion = "1.8.2"
     val androidCoreVersion = "1.12.0"
     val appCompatVersion = "1.6.1"
@@ -94,6 +96,12 @@ dependencies {
     implementation("com.mapbox.navigationcore:ui-components:3.3.0-rc.1")
     implementation("com.mapbox.navigationcore:android:3.3.0-rc.1")
 
+    //Firebase
+    implementation("com.google.firebase:firebase-auth:23.0.0")
+
+    // Coroutines
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.2")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.2")
 
     implementation("com.google.android.gms:play-services-maps:19.0.0")
 
@@ -102,4 +110,7 @@ dependencies {
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+
+    // Events
+    implementation("org.greenrobot:eventbus:3.3.1")
 }

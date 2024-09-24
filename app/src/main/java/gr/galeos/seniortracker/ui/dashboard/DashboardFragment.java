@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
 import gr.galeos.seniortracker.R;
@@ -17,6 +18,7 @@ import gr.galeos.seniortracker.databinding.FragmentDashboardBinding;
 public class DashboardFragment extends Fragment {
 
     private FragmentDashboardBinding binding;
+    private DashboardViewModel viewmodel;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -29,6 +31,7 @@ public class DashboardFragment extends Fragment {
 
         super.onViewCreated(view, savedInstanceState);
         loadUI();
+        setupViewModel();
         setClickListeners();
     }
 
@@ -46,6 +49,12 @@ public class DashboardFragment extends Fragment {
         binding.settingsTile.image.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.ic_settings, null));
     }
 
+    private void setupViewModel() {
+
+        viewmodel =
+                new ViewModelProvider(this).get(DashboardViewModel.class);
+    }
+
     private void setClickListeners() {
 
         binding.historyTile.getRoot().setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.action_navigation_dashboard_to_navigation_history));
@@ -53,6 +62,7 @@ public class DashboardFragment extends Fragment {
         binding.manageFencesTile.getRoot().setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.action_navigation_dashboard_to_navigation_manage_places));
         binding.manageSeniorsTile.getRoot().setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.action_navigation_dashboard_to_navigation_manage_seniors));
         binding.settingsTile.getRoot().setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.action_navigation_dashboard_to_navigation_settings));
+
     }
 
     @Override
