@@ -27,7 +27,6 @@ public class HomeFragment extends Fragment {
     private HomeViewModel viewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
@@ -51,22 +50,34 @@ public class HomeFragment extends Fragment {
     }
 
     private void initUi() {
-            SharedPreferencesUtils.initSharedPreferences(requireContext());
+        SharedPreferencesUtils.initSharedPreferences(requireContext());
 
-            if (SharedPreferencesUtils.isSessionIdValid()){
-                binding.tvTitle.setVisibility(View.VISIBLE);
-                binding.tvSubtitle.setVisibility(View.VISIBLE);
-                binding.includeLatestActivity.getRoot().setVisibility(View.VISIBLE);
-                binding.includeYourSeniors.getRoot().setVisibility(View.VISIBLE);
-                binding.loggedOutLayout.getRoot().setVisibility(View.GONE);
-            }else if (!SharedPreferencesUtils.isSessionIdValid()){
-                binding.tvTitle.setVisibility(View.INVISIBLE);
-                binding.tvSubtitle.setVisibility(View.INVISIBLE);
-                binding.includeLatestActivity.getRoot().setVisibility(View.GONE);
-                binding.includeYourSeniors.getRoot().setVisibility(View.GONE);
-                binding.loggedOutLayout.getRoot().setVisibility(View.VISIBLE);
-                EventBus.getDefault().post(new MessageEvent(Constants.USER_LOGOUT));
-            }
+        if (SharedPreferencesUtils.isSessionIdValid() && SharedPreferencesUtils.retrieveAccountType().equals("0")) {
+            EventBus.getDefault().post(new MessageEvent(Constants.USER_LOGGED_IN));
+            binding.tvTitle.setVisibility(View.VISIBLE);
+            binding.tvSubtitle.setVisibility(View.VISIBLE);
+            binding.includeLatestActivity.getRoot().setVisibility(View.VISIBLE);
+            binding.includeYourSeniors.getRoot().setVisibility(View.VISIBLE);
+            binding.loggedOutLayout.getRoot().setVisibility(View.GONE);
+            binding.seniorsLayout.getRoot().setVisibility(View.GONE);
+        } else if (SharedPreferencesUtils.isSessionIdValid() && SharedPreferencesUtils.retrieveAccountType().equals("1")) {
+            EventBus.getDefault().post(new MessageEvent(Constants.USER_LOGGED_IN));
+            binding.tvTitle.setVisibility(View.VISIBLE);
+            binding.tvSubtitle.setVisibility(View.VISIBLE);
+            binding.includeLatestActivity.getRoot().setVisibility(View.GONE);
+            binding.includeYourSeniors.getRoot().setVisibility(View.GONE);
+            binding.loggedOutLayout.getRoot().setVisibility(View.GONE);
+            binding.seniorsLayout.getRoot().setVisibility(View.VISIBLE);
+        } else {
+            EventBus.getDefault().post(new MessageEvent(Constants.USER_LOGOUT));
+            binding.tvTitle.setVisibility(View.INVISIBLE);
+            binding.tvSubtitle.setVisibility(View.INVISIBLE);
+            binding.includeLatestActivity.getRoot().setVisibility(View.GONE);
+            binding.includeYourSeniors.getRoot().setVisibility(View.GONE);
+            binding.loggedOutLayout.getRoot().setVisibility(View.VISIBLE);
+            binding.seniorsLayout.getRoot().setVisibility(View.GONE);
+
+        }
     }
 
     private void setupObservers() {
@@ -75,7 +86,7 @@ public class HomeFragment extends Fragment {
 
     private void setClickListeners() {
         binding.loggedOutLayout.loginButton.setOnClickListener(v -> {
-                Navigation.findNavController(v).navigate(R.id.action_navigate_from_home_to_login);
+            Navigation.findNavController(v).navigate(R.id.action_navigate_from_home_to_login);
         });
     }
 

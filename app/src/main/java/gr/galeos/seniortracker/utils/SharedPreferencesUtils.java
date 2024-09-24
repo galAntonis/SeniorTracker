@@ -3,6 +3,7 @@ package gr.galeos.seniortracker.utils;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+
 public class SharedPreferencesUtils {
 
     private static SharedPreferences sharedPreferences = null;
@@ -49,6 +50,23 @@ public class SharedPreferencesUtils {
 
     public static void invalidateSessionId() {
         removeFromSharedPreferences(Constants.USER_TOKEN);
+    }
+
+
+    public static void saveAccountType(String type) {
+        writeToSharedPreferences(Constants.USER_TYPE, type);
+    }
+
+    public static String retrieveAccountType() {
+        return readFromSharedPreferences(Constants.USER_TYPE);
+    }
+
+    public static boolean isAccountTypeValid() {
+        return retrieveAccountType() != null;
+    }
+
+    public static void invalidateAccountType() {
+        removeFromSharedPreferences(Constants.USER_TYPE);
     }
 
     public static void saveSkipLogin(boolean isSkipped) {

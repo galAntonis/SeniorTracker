@@ -56,8 +56,6 @@ public class MainActivity extends AppCompatActivity {
 
         destinationListener(navController);
 
-        //subscribeToLoginEvent();
-
     }
 
 
@@ -106,16 +104,19 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    public void onStart() {
+    @Override public void onStart() {
         super.onStart();
         EventBus.getDefault().register(this);
     }
 
     @Override
-    public void onStop() {
-        EventBus.getDefault().unregister(this);
-        super.onStop();
+    protected void onPostResume() {
+        super.onPostResume();
+        if (SharedPreferencesUtils.isSessionIdValid()) {
+            EventBus.getDefault().post(new MessageEvent(Constants.USER_LOGGED_IN));
+        } else {
+            EventBus.getDefault().post(new MessageEvent(Constants.USER_LOGOUT));
+        }
     }
 
     private void showServices() {

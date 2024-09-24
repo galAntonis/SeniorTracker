@@ -2,10 +2,9 @@ package gr.galeos.seniortracker.models;
 
 public class User {
 
-    String id,firstname, lastname, email, phone;
-    int accountType;
+    String id,firstname, lastname, email, phone, accountType;
 
-    public User(String id, String firstname, String lastname, String email, String phone, Integer accountType) {
+    public User(String id, String firstname, String lastname, String email, String phone, String accountType) {
         this.id = id;
         this.firstname = firstname;
         this.lastname = lastname;
@@ -55,11 +54,11 @@ public class User {
         this.phone = phone;
     }
 
-    public Integer getAccountType() {
+    public String getAccountType() {
         return accountType;
     }
 
-    public void setAccountType(Integer accountType) {
+    public void setAccountType(String accountType) {
         this.accountType = accountType;
     }
 }

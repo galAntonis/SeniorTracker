@@ -12,8 +12,12 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
+import org.greenrobot.eventbus.EventBus;
+
 import gr.galeos.seniortracker.R;
 import gr.galeos.seniortracker.databinding.FragmentAccountBinding;
+import gr.galeos.seniortracker.utils.Constants;
+import gr.galeos.seniortracker.utils.MessageEvent;
 import gr.galeos.seniortracker.utils.SharedPreferencesUtils;
 
 public class AccountFragment extends Fragment {
@@ -46,9 +50,19 @@ public class AccountFragment extends Fragment {
     private void setupObservers() {
         viewModel.data().observe(getViewLifecycleOwner(), data -> {
             if (data) {
-                Navigation.findNavController(binding.getRoot()).navigate(R.id.action_navigate_from_account_to_home);
+                viewModel.getAccountType(SharedPreferencesUtils.retrieveSessionId());
             } else {
                 Toast.makeText(getContext(), "Account activation failed", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        viewModel.getType().observe(getViewLifecycleOwner(), type -> {
+            if (type != null) {
+                SharedPreferencesUtils.saveAccountType(type);
+                Navigation.findNavController(binding.getRoot()).navigate(R.id.action_navigate_from_account_to_home);
+                EventBus.getDefault().post(new MessageEvent(Constants.USER_LOGGED_IN));
+            } else {
+                // Error
             }
         });
     }
@@ -60,11 +74,11 @@ public class AccountFragment extends Fragment {
             String lastname = binding.surnameEditText.getText().toString();
             String email = binding.emailEditText.getText().toString();
             String phone = binding.phoneEditText.getText().toString();
-            int accountType;
+            String accountType;
             if (binding.rbSupervisor.isChecked()) {
-                accountType = 0; //Supervisor
+                accountType = "0"; //Supervisor
             } else {
-                accountType = 1; //Senior
+                accountType = "1"; //Senior
             }
 
             viewModel.writeUserData(id, firstname, lastname, email, phone, accountType);
