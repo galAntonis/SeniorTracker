@@ -64,7 +64,6 @@ public class HomeFragment extends Fragment {
         setupObservers();
         setClickListeners();
 
-
     }
 
     private void setupViewModel() {
@@ -84,6 +83,7 @@ public class HomeFragment extends Fragment {
             binding.includeYourSeniors.getRoot().setVisibility(View.VISIBLE);
             binding.loggedOutLayout.getRoot().setVisibility(View.GONE);
             binding.seniorsLayout.getRoot().setVisibility(View.GONE);
+            viewModel.getLocationData();
         } else if (SharedPreferencesUtils.isSessionIdValid() && SharedPreferencesUtils.retrieveAccountType().equals("1")) {
             EventBus.getDefault().post(new MessageEvent(Constants.USER_LOGGED_IN));
             binding.tvTitle.setVisibility(View.VISIBLE);
