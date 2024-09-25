@@ -82,9 +82,14 @@ public class MainActivity extends AppCompatActivity {
                 } else if (destination.getId() == R.id.fragment_login) {
                     navView.setVisibility(View.GONE);
                     getSupportActionBar().hide();
+                } else if (destination.getId() == R.id.fragment_settings) {
+                    navView.setVisibility(View.GONE);
+                   getSupportActionBar().show();
+                   getSupportActionBar().setTitle("Settings");
                 } else if (destination.getId() == R.id.fragment_account) {
                     navView.setVisibility(View.GONE);
-                    getSupportActionBar().hide();
+                   getSupportActionBar().show();
+                   getSupportActionBar().setTitle("My Account");
                 }
             }
         });

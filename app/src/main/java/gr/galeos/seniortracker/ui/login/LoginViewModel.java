@@ -7,6 +7,8 @@ import androidx.lifecycle.ViewModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import gr.galeos.seniortracker.UserModel;
+
 public class LoginViewModel extends ViewModel {
 
     private final MutableLiveData<String> _accessToken = new MutableLiveData<>();
@@ -44,6 +46,7 @@ public class LoginViewModel extends ViewModel {
         db.collection("users").document(id).get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
+                        UserModel.getInstance().setUser(id, task.getResult().get("firstname", String.class), task.getResult().get("lastname", String.class), task.getResult().get("email", String.class), task.getResult().get("phone", String.class), task.getResult().get("accountType", String.class));
                         _accountType.postValue(task.getResult().get("accountType", String.class));
                     } else {
                         _accountType.postValue(task.getException().getMessage());

@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel;
 
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import gr.galeos.seniortracker.models.User;
+import gr.galeos.seniortracker.UserModel;
 
 public class AccountViewModel extends ViewModel {
 
@@ -23,7 +23,8 @@ public class AccountViewModel extends ViewModel {
     }
 
     public void writeUserData(String id, String firstname, String lastname, String email, String phone, String accountType) {
-        db.collection("users").document(id).set(new User(id, firstname, lastname, email, phone, accountType))
+        UserModel.getInstance().setUser(id, firstname, lastname, email, phone, accountType);
+        db.collection("users").document(id).set(UserModel.getInstance().user)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         _data.postValue(true);

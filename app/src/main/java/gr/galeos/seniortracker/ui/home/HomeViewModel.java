@@ -1,19 +1,23 @@
 package gr.galeos.seniortracker.ui.home;
 
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
+
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class HomeViewModel extends ViewModel {
 
-    private final MutableLiveData<String> mText;
+    FirebaseDatabase database;
+    DatabaseReference df;
 
     public HomeViewModel() {
-        mText = new MutableLiveData<>();
-        mText.setValue("This is home fragment");
+       database = FirebaseDatabase.getInstance();
     }
 
-    public LiveData<String> getText() {
-        return mText;
+    public void writeLocationData(String id,double lon, double lat) {
+        df = database.getReference("users").child(id);
+        df.child("lat").setValue(lat);
+        df.child("lon").setValue(lon);
     }
+
 }
