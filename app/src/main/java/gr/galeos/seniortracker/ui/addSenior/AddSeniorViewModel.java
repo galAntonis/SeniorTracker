@@ -32,9 +32,9 @@ public class AddSeniorViewModel extends ViewModel {
     }
 
     public void findUser(String email) {
-        db.collection("users").document(email).get()
+        db.collection("seniors").document(email).get()
                 .addOnCompleteListener(task -> {
-                    if (task.isSuccessful() && task.getResult().get("accountType", String.class).equals("1")) {
+                    if (task.isSuccessful()) {
                         User user = new User(
                                 task.getResult().get("id", String.class),
                                 task.getResult().get("firstname", String.class),
