@@ -41,7 +41,6 @@ public class SettingsFragment extends Fragment {
             Navigation.findNavController(v).navigate(R.id.action_navigation_settings_to_account);
         });
         binding.exitOption.setOnClickListener(v -> {
-            SharedPreferencesUtils.invalidateAccountType();
             SharedPreferencesUtils.invalidateSessionId();
             EventBus.getDefault().post(new MessageEvent(Constants.USER_LOGOUT));
             Navigation.findNavController(v).navigate(R.id.action_navigation_settings_to_home);

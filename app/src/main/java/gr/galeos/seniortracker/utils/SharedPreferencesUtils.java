@@ -52,37 +52,12 @@ public class SharedPreferencesUtils {
         removeFromSharedPreferences(Constants.USER_TOKEN);
     }
 
-
-    public static void saveAccountType(String type) {
-        writeToSharedPreferences(Constants.USER_TYPE, type);
-    }
-
-    public static String retrieveAccountType() {
-        return readFromSharedPreferences(Constants.USER_TYPE);
-    }
-
-    public static boolean isAccountTypeValid() {
-        return retrieveAccountType() != null;
-    }
-
-    public static void invalidateAccountType() {
-        removeFromSharedPreferences(Constants.USER_TYPE);
-    }
-
     public static void saveSkipLogin(boolean isSkipped) {
         writeToSharedPreferencesBoolean(Constants.USER_SKIP_LOGIN, isSkipped);
     }
 
     public static boolean isLoginSkipped() {
         return readFromSharedPreferencesBoolean(Constants.USER_SKIP_LOGIN);
-    }
-
-    public static void saveEmail(String email) {
-        writeToSharedPreferences(Constants.USER_EMAIL, email);
-    }
-
-    public static String retrieveEmail() {
-        return readFromSharedPreferences(Constants.USER_EMAIL);
     }
 }
 

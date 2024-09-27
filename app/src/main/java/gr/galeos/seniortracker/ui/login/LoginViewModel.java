@@ -17,9 +17,11 @@ public class LoginViewModel extends ViewModel {
         return _accessToken;
     }
 
-    private final MutableLiveData<String> _accountType = new MutableLiveData<>();
+    private final MutableLiveData<Boolean> _accountFound = new MutableLiveData<>();
 
-    public LiveData<String> getType() {return _accountType;}
+    public LiveData<Boolean> findAccount() {
+        return _accountFound;
+    }
 
     FirebaseFirestore db;
 
@@ -42,14 +44,20 @@ public class LoginViewModel extends ViewModel {
                 );
     }
 
-    public void getAccountType(String email) {
-        db.collection("users").document(email).get()
+    public void getAccount(String id) {
+        db.collection("users").document(id).get()
                 .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        UserModel.getInstance().setUser(task.getResult().get("id",String.class), task.getResult().get("firstname", String.class), task.getResult().get("lastname", String.class), email, task.getResult().get("phone", String.class), task.getResult().get("accountType", String.class));
-                        _accountType.postValue(task.getResult().get("accountType", String.class));
+                    if (task.isSuccessful() && task.getResult().exists()) {
+                        UserModel.getInstance().setUser(
+                                task.getResult().get("id", String.class),
+                                task.getResult().get("firstname", String.class),
+                                task.getResult().get("lastname", String.class),
+                                task.getResult().get("email", String.class),
+                                task.getResult().get("phone", String.class),
+                                task.getResult().get("accountType", String.class));
+                        _accountFound.setValue(true);
                     } else {
-                        _accountType.postValue(task.getException().getMessage());
+                        _accountFound.setValue(false);
                     }
                 });
     }

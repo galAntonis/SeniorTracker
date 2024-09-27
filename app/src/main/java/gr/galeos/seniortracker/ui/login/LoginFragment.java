@@ -50,22 +50,19 @@ public class LoginFragment extends Fragment {
         viewModel.getToken().observe(getViewLifecycleOwner(), token -> {
             if (token != null) {
                 SharedPreferencesUtils.saveSessionId(token);
-                SharedPreferencesUtils.saveEmail(binding.emailEditText.getText().toString());
-                viewModel.getAccountType(binding.emailEditText.getText().toString());
+                viewModel.getAccount(token);
             } else {
                 binding.errorMessageTextView.setVisibility(View.VISIBLE);
                 binding.errorMessageTextView.setText(R.string.login_failed);
             }
         });
 
-        viewModel.getType().observe(getViewLifecycleOwner(), type -> {
-            if (type != null) {
-                SharedPreferencesUtils.saveAccountType(type);
+        viewModel.findAccount().observe(getViewLifecycleOwner(), found -> {
+            if (found) {
                 Navigation.findNavController(binding.getRoot()).navigate(R.id.action_navigate_from_login_to_home);
                 EventBus.getDefault().post(new MessageEvent(Constants.USER_LOGGED_IN));
             } else {
                 Navigation.findNavController(binding.getRoot()).navigate(R.id.action_navigate_from_login_to_account);
-
             }
         });
 

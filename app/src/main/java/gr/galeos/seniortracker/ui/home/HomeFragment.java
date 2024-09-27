@@ -59,6 +59,9 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
         super.onViewCreated(view, savedInstanceState);
+
+        SharedPreferencesUtils.initSharedPreferences(requireContext());
+
         setupViewModel();
         initUi();
         setupObservers();
@@ -73,16 +76,12 @@ public class HomeFragment extends Fragment {
     }
 
     private void initUi() {
-
-        SharedPreferencesUtils.initSharedPreferences(requireContext());
-        if (SharedPreferencesUtils.isSessionIdValid() && SharedPreferencesUtils.retrieveAccountType().equals("0")) {
-            initSupervisorUI();
-            viewModel.getLocationData();
-        } else if (SharedPreferencesUtils.isSessionIdValid() && SharedPreferencesUtils.retrieveAccountType().equals("1")) {
-            initSeniorUI();
+        if (SharedPreferencesUtils.isSessionIdValid()) {
+            viewModel.getMe(SharedPreferencesUtils.retrieveSessionId());
         } else {
             initLogoutUI();
         }
+
     }
 
     private void initSupervisorUI() {
@@ -116,7 +115,17 @@ public class HomeFragment extends Fragment {
     }
 
     private void setupObservers() {
-
+        viewModel.findAccount().observe(getViewLifecycleOwner(), found -> {
+            if (found) {
+                if (UserModel.getInstance().user.getAccountType().equals("0")) {
+                    initSupervisorUI();
+                } else if (UserModel.getInstance().user.getAccountType().equals("1")){
+                    initSeniorUI();
+                }
+            } else {
+                initLogoutUI();
+            }
+        });
     }
 
     private void setClickListeners() {
@@ -205,6 +214,7 @@ public class HomeFragment extends Fragment {
             Toast.makeText(requireContext(), "Location permission denied", Toast.LENGTH_LONG).show();
         }
     }
+
 
     private void broadcastLocation() {
         getCurrentLocation();
