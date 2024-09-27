@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
 import gr.galeos.seniortracker.R;
+import gr.galeos.seniortracker.UserModel;
 import gr.galeos.seniortracker.databinding.FragmentDashboardBinding;
 
 public class DashboardFragment extends Fragment {
@@ -47,6 +48,27 @@ public class DashboardFragment extends Fragment {
         binding.manageSeniorsTile.image.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.ic_manage_seniors, null));
         binding.settingsTile.title.setText(getString(R.string.dashboard_settings));
         binding.settingsTile.image.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.ic_settings, null));
+
+        if (UserModel.getInstance().user.getAccountType().equals("1")){
+            binding.historyTile.getRoot().setAlpha(0.5f);
+            binding.historyTile.getRoot().setEnabled(false);
+            binding.viewFencesTile.getRoot().setAlpha(0.5f);
+            binding.viewFencesTile.getRoot().setEnabled(false);
+            binding.manageFencesTile.getRoot().setAlpha(0.5f);
+            binding.manageFencesTile.getRoot().setEnabled(false);
+            binding.manageSeniorsTile.getRoot().setAlpha(0.5f);
+            binding.manageSeniorsTile.getRoot().setEnabled(false);
+        } else if (UserModel.getInstance().user.getAccountType().equals("0")){
+            binding.historyTile.getRoot().setAlpha(1f);
+            binding.historyTile.getRoot().setEnabled(true);
+            binding.viewFencesTile.getRoot().setAlpha(1f);
+            binding.viewFencesTile.getRoot().setEnabled(true);
+            binding.manageFencesTile.getRoot().setAlpha(1f);
+            binding.manageFencesTile.getRoot().setEnabled(true);
+            binding.manageSeniorsTile.getRoot().setAlpha(1f);
+            binding.manageSeniorsTile.getRoot().setEnabled(true);
+        }
+
     }
 
     private void setupViewModel() {
