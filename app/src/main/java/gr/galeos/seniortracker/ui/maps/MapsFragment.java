@@ -136,16 +136,7 @@ public class MapsFragment extends Fragment implements
             // Display the missing permission error dialog when the fragments resume.
             permissionDenied = true;
             // [END_EXCLUDE]
-        }
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        if (permissionDenied) {
-            // Permission was not granted, display error dialog.
             showMissingPermissionError();
-            permissionDenied = false;
         }
     }
 

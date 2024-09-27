@@ -76,5 +76,13 @@ public class SharedPreferencesUtils {
     public static boolean isLoginSkipped() {
         return readFromSharedPreferencesBoolean(Constants.USER_SKIP_LOGIN);
     }
+
+    public static void saveEmail(String email) {
+        writeToSharedPreferences(Constants.USER_EMAIL, email);
+    }
+
+    public static String retrieveEmail() {
+        return readFromSharedPreferences(Constants.USER_EMAIL);
+    }
 }
 

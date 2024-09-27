@@ -50,7 +50,8 @@ public class LoginFragment extends Fragment {
         viewModel.getToken().observe(getViewLifecycleOwner(), token -> {
             if (token != null) {
                 SharedPreferencesUtils.saveSessionId(token);
-                viewModel.getAccountType(token);
+                SharedPreferencesUtils.saveEmail(binding.emailEditText.getText().toString());
+                viewModel.getAccountType(binding.emailEditText.getText().toString());
             } else {
                 binding.errorMessageTextView.setVisibility(View.VISIBLE);
                 binding.errorMessageTextView.setText(R.string.login_failed);

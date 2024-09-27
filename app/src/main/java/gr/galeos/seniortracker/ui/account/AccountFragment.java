@@ -50,7 +50,7 @@ public class AccountFragment extends Fragment {
     private void setupObservers() {
         viewModel.data().observe(getViewLifecycleOwner(), data -> {
             if (data) {
-                viewModel.getAccountType(SharedPreferencesUtils.retrieveSessionId());
+                viewModel.getAccountType(SharedPreferencesUtils.retrieveEmail());
             } else {
                 Toast.makeText(getContext(), "Account activation failed", Toast.LENGTH_SHORT).show();
             }

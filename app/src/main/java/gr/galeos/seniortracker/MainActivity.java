@@ -62,10 +62,10 @@ public class MainActivity extends AppCompatActivity {
     private void destinationListener(@NonNull NavController navController) {
         navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
             if (getSupportActionBar() != null) {  // Check if the ActionBar is available
-               if(destination.getId() == R.id.fragment_home){
+                if (destination.getId() == R.id.fragment_home) {
                     navView.setVisibility(View.VISIBLE);
                     getSupportActionBar().hide();
-                }else if (destination.getId() == R.id.fragment_maps) {
+                } else if (destination.getId() == R.id.fragment_maps) {
                     navView.setVisibility(View.VISIBLE);
                     getSupportActionBar().hide();
                 } else if (destination.getId() == R.id.fragment_dashboard) {
@@ -84,12 +84,20 @@ public class MainActivity extends AppCompatActivity {
                     getSupportActionBar().hide();
                 } else if (destination.getId() == R.id.fragment_settings) {
                     navView.setVisibility(View.GONE);
-                   getSupportActionBar().show();
-                   getSupportActionBar().setTitle("Settings");
+                    getSupportActionBar().show();
+                    getSupportActionBar().setTitle("Settings");
                 } else if (destination.getId() == R.id.fragment_account) {
                     navView.setVisibility(View.GONE);
-                   getSupportActionBar().show();
-                   getSupportActionBar().setTitle("My Account");
+                    getSupportActionBar().show();
+                    getSupportActionBar().setTitle("My Account");
+                } else if (destination.getId() == R.id.fragment_manage_seniors) {
+                    navView.setVisibility(View.GONE);
+                    getSupportActionBar().show();
+                    getSupportActionBar().setTitle("Manage Seniors");
+                } else if (destination.getId() == R.id.fragment_add_senior) {
+                    navView.setVisibility(View.GONE);
+                    getSupportActionBar().show();
+                    getSupportActionBar().setTitle("Add Senior");
                 }
             }
         });
@@ -102,14 +110,15 @@ public class MainActivity extends AppCompatActivity {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(MessageEvent event) {
-        if (Objects.equals(event.message, Constants.USER_LOGGED_IN)){
+        if (Objects.equals(event.message, Constants.USER_LOGGED_IN)) {
             showServices();
         } else {
             hideServices();
         }
     }
 
-    @Override public void onStart() {
+    @Override
+    public void onStart() {
         super.onStart();
         EventBus.getDefault().register(this);
     }

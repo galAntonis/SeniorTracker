@@ -42,11 +42,11 @@ public class LoginViewModel extends ViewModel {
                 );
     }
 
-    public void getAccountType(String id) {
-        db.collection("users").document(id).get()
+    public void getAccountType(String email) {
+        db.collection("users").document(email).get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
-                        UserModel.getInstance().setUser(id, task.getResult().get("firstname", String.class), task.getResult().get("lastname", String.class), task.getResult().get("email", String.class), task.getResult().get("phone", String.class), task.getResult().get("accountType", String.class));
+                        UserModel.getInstance().setUser(task.getResult().get("id",String.class), task.getResult().get("firstname", String.class), task.getResult().get("lastname", String.class), email, task.getResult().get("phone", String.class), task.getResult().get("accountType", String.class));
                         _accountType.postValue(task.getResult().get("accountType", String.class));
                     } else {
                         _accountType.postValue(task.getException().getMessage());

@@ -24,7 +24,7 @@ public class AccountViewModel extends ViewModel {
 
     public void writeUserData(String id, String firstname, String lastname, String email, String phone, String accountType) {
         UserModel.getInstance().setUser(id, firstname, lastname, email, phone, accountType);
-        db.collection("users").document(id).set(UserModel.getInstance().user)
+        db.collection("users").document(email).set(UserModel.getInstance().user)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         _data.postValue(true);
@@ -34,8 +34,8 @@ public class AccountViewModel extends ViewModel {
                 });
     }
 
-    public void getAccountType(String id) {
-        db.collection("users").document(id).get()
+    public void getAccountType(String email) {
+        db.collection("users").document(email).get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         _accountType.postValue(task.getResult().get("accountType", String.class));

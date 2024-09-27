@@ -73,35 +73,46 @@ public class HomeFragment extends Fragment {
     }
 
     private void initUi() {
-        SharedPreferencesUtils.initSharedPreferences(requireContext());
 
+        SharedPreferencesUtils.initSharedPreferences(requireContext());
         if (SharedPreferencesUtils.isSessionIdValid() && SharedPreferencesUtils.retrieveAccountType().equals("0")) {
-            EventBus.getDefault().post(new MessageEvent(Constants.USER_LOGGED_IN));
-            binding.tvTitle.setVisibility(View.VISIBLE);
-            binding.tvSubtitle.setVisibility(View.VISIBLE);
-            binding.includeLatestActivity.getRoot().setVisibility(View.VISIBLE);
-            binding.includeYourSeniors.getRoot().setVisibility(View.VISIBLE);
-            binding.loggedOutLayout.getRoot().setVisibility(View.GONE);
-            binding.seniorsLayout.getRoot().setVisibility(View.GONE);
+            initSupervisorUI();
             viewModel.getLocationData();
         } else if (SharedPreferencesUtils.isSessionIdValid() && SharedPreferencesUtils.retrieveAccountType().equals("1")) {
-            EventBus.getDefault().post(new MessageEvent(Constants.USER_LOGGED_IN));
-            binding.tvTitle.setVisibility(View.VISIBLE);
-            binding.tvSubtitle.setVisibility(View.VISIBLE);
-            binding.includeLatestActivity.getRoot().setVisibility(View.GONE);
-            binding.includeYourSeniors.getRoot().setVisibility(View.GONE);
-            binding.loggedOutLayout.getRoot().setVisibility(View.GONE);
-            binding.seniorsLayout.getRoot().setVisibility(View.VISIBLE);
+            initSeniorUI();
         } else {
-            EventBus.getDefault().post(new MessageEvent(Constants.USER_LOGOUT));
-            binding.tvTitle.setVisibility(View.INVISIBLE);
-            binding.tvSubtitle.setVisibility(View.INVISIBLE);
-            binding.includeLatestActivity.getRoot().setVisibility(View.GONE);
-            binding.includeYourSeniors.getRoot().setVisibility(View.GONE);
-            binding.loggedOutLayout.getRoot().setVisibility(View.VISIBLE);
-            binding.seniorsLayout.getRoot().setVisibility(View.GONE);
-
+            initLogoutUI();
         }
+    }
+
+    private void initSupervisorUI() {
+        EventBus.getDefault().post(new MessageEvent(Constants.USER_LOGGED_IN));
+        binding.tvTitle.setVisibility(View.VISIBLE);
+        binding.tvSubtitle.setVisibility(View.VISIBLE);
+        binding.includeLatestActivity.getRoot().setVisibility(View.VISIBLE);
+        binding.includeYourSeniors.getRoot().setVisibility(View.VISIBLE);
+        binding.loggedOutLayout.getRoot().setVisibility(View.GONE);
+        binding.seniorsLayout.getRoot().setVisibility(View.GONE);
+    }
+
+    private void initSeniorUI() {
+        EventBus.getDefault().post(new MessageEvent(Constants.USER_LOGGED_IN));
+        binding.tvTitle.setVisibility(View.VISIBLE);
+        binding.tvSubtitle.setVisibility(View.VISIBLE);
+        binding.includeLatestActivity.getRoot().setVisibility(View.GONE);
+        binding.includeYourSeniors.getRoot().setVisibility(View.GONE);
+        binding.loggedOutLayout.getRoot().setVisibility(View.GONE);
+        binding.seniorsLayout.getRoot().setVisibility(View.VISIBLE);
+    }
+
+    private void initLogoutUI() {
+        EventBus.getDefault().post(new MessageEvent(Constants.USER_LOGOUT));
+        binding.tvTitle.setVisibility(View.INVISIBLE);
+        binding.tvSubtitle.setVisibility(View.INVISIBLE);
+        binding.includeLatestActivity.getRoot().setVisibility(View.GONE);
+        binding.includeYourSeniors.getRoot().setVisibility(View.GONE);
+        binding.loggedOutLayout.getRoot().setVisibility(View.VISIBLE);
+        binding.seniorsLayout.getRoot().setVisibility(View.GONE);
     }
 
     private void setupObservers() {
@@ -119,6 +130,8 @@ public class HomeFragment extends Fragment {
         });
     }
 
+
+    // [START maps_check_location_permission]
     @SuppressLint("MissingPermission")
     private void enableMyLocation() {
         // [START maps_check_location_permission]
@@ -158,15 +171,6 @@ public class HomeFragment extends Fragment {
         }
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        if (permissionDenied) {
-            // Permission was not granted, display error dialog.
-            showMissingPermissionError();
-            permissionDenied = false;
-        }
-    }
 
     /**
      * Displays a dialog with error message explaining that the location permission is missing.
