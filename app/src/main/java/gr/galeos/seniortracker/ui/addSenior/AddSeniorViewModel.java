@@ -6,8 +6,6 @@ import androidx.lifecycle.ViewModel;
 
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.util.Map;
-
 import gr.galeos.seniortracker.UserModel;
 import gr.galeos.seniortracker.models.User;
 
@@ -50,9 +48,12 @@ public class AddSeniorViewModel extends ViewModel {
                 });
     }
 
-    public void addSenior(String email) {
-        Map<String,String> senior = Map.of("email", email);
-        db.collection("senior_tracking").document(UserModel.getInstance().user.getEmail()).set(senior)
+    public void addSenior(User senior) {
+        db.collection("senior_tracking")
+                .document(UserModel.getInstance().user.getEmail())
+                .collection("my_seniors")
+                .document(senior.getEmail())
+                .set(senior)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         _userAdded.postValue(true);

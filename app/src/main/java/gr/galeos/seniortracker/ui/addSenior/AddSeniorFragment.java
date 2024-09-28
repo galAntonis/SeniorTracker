@@ -13,12 +13,13 @@ import androidx.lifecycle.ViewModelProvider;
 
 import gr.galeos.seniortracker.R;
 import gr.galeos.seniortracker.databinding.FragmentAddSeniorBinding;
+import gr.galeos.seniortracker.models.User;
 
 public class AddSeniorFragment extends Fragment {
     private FragmentAddSeniorBinding binding;
     private AddSeniorViewModel viewModel;
+    private User senior;
 
-    private String seniorEmail;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -43,8 +44,8 @@ public class AddSeniorFragment extends Fragment {
     private void setupObservers() {
         viewModel.getUser().observe(getViewLifecycleOwner(), user -> {
             if (user != null) {
+                senior = user;
                 Log.d("AddSeniorFragment", "User found: " + user);
-                seniorEmail = user.getEmail();
                 binding.errorMessageTextView.setVisibility(View.GONE);
                 binding.cvResult.setVisibility(View.VISIBLE);
                 binding.tvName.setText(user.getFirstname());
@@ -70,11 +71,20 @@ public class AddSeniorFragment extends Fragment {
 
     private void setClickListeners() {
         binding.searchButton.setOnClickListener(v -> {
-            viewModel.findUser(binding.emailEditText.getText().toString());
+            if (binding.emailEditText.getText().toString().isEmpty()) {
+                binding.errorMessageTextView.setVisibility(View.VISIBLE);
+                binding.errorMessageTextView.setText("Email is required");
+            }else if (binding.emailEditText.getText().toString().contains("@")) {
+                binding.errorMessageTextView.setVisibility(View.GONE);
+                viewModel.findUser(binding.emailEditText.getText().toString());
+            } else {
+                binding.errorMessageTextView.setVisibility(View.VISIBLE);
+                binding.errorMessageTextView.setText("Invalid email");
+            }
         });
 
         binding.ivAdd.setOnClickListener(v -> {
-            viewModel.addSenior(seniorEmail);
+            viewModel.addSenior(senior);
         });
     }
 
