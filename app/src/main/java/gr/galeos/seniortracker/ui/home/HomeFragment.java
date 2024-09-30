@@ -2,35 +2,40 @@ package gr.galeos.seniortracker.ui.home;
 
 
 import android.Manifest;
-import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.location.Location;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 
 import org.greenrobot.eventbus.EventBus;
+
+import java.util.ArrayList;
 
 import gr.galeos.seniortracker.R;
 import gr.galeos.seniortracker.UserModel;
 import gr.galeos.seniortracker.databinding.FragmentHomeBinding;
+import gr.galeos.seniortracker.databinding.ItemYourSeniorsBinding;
+import gr.galeos.seniortracker.models.User;
 import gr.galeos.seniortracker.utils.Constants;
+import gr.galeos.seniortracker.utils.LocationTrackingService;
 import gr.galeos.seniortracker.utils.MessageEvent;
-import gr.galeos.seniortracker.utils.PermissionUtils;
 import gr.galeos.seniortracker.utils.SharedPreferencesUtils;
 
 
@@ -92,6 +97,7 @@ public class HomeFragment extends Fragment {
         binding.includeYourSeniors.getRoot().setVisibility(View.VISIBLE);
         binding.loggedOutLayout.getRoot().setVisibility(View.GONE);
         binding.seniorsLayout.getRoot().setVisibility(View.GONE);
+        viewModel.getMySeniors();
     }
 
     private void initSeniorUI() {
@@ -126,12 +132,31 @@ public class HomeFragment extends Fragment {
                 initLogoutUI();
             }
         });
+
+        viewModel.getSeniors().observe(getViewLifecycleOwner(), seniors -> {
+            if (seniors != null) {
+                binding.includeYourSeniors.list.setLayoutManager(new LinearLayoutManager(getContext()));
+                binding.includeYourSeniors.list.setAdapter(new HomeFragment.SeniorsAdapter(seniors));
+                for (int i=0;i<seniors.size();i++){
+                    Log.d("ManageSeniorsFragment", "Seniors found: " + seniors.get(i).getEmail());
+                }
+            } else {
+                Log.d("ManageSeniorsFragment", "Seniors not found");
+            }
+        });
     }
 
     private void setClickListeners() {
         binding.seniorsLayout.broadcastButton.setOnClickListener(v -> {
-            enableMyLocation();
-            broadcastLocation();
+            if (hasLocationPermission()) {
+                startTrackingService();
+            } else {
+                requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+            }
+        });
+
+        binding.seniorsLayout.stopBroadcastButton.setOnClickListener(v -> {
+            stopTrackingService();
         });
 
         binding.loggedOutLayout.loginButton.setOnClickListener(v -> {
@@ -139,88 +164,78 @@ public class HomeFragment extends Fragment {
         });
     }
 
-
-    // [START maps_check_location_permission]
-    @SuppressLint("MissingPermission")
-    private void enableMyLocation() {
-        // [START maps_check_location_permission]
-        // 1. Check if permissions are granted, if so, enable the my location layer
-        if (ContextCompat.checkSelfPermission(this.requireContext(), Manifest.permission.ACCESS_FINE_LOCATION)
-                == PackageManager.PERMISSION_GRANTED
-                || ContextCompat.checkSelfPermission(this.requireContext(), Manifest.permission.ACCESS_COARSE_LOCATION)
-                == PackageManager.PERMISSION_GRANTED) {
-            return;
-        }
-
-        // 2. Otherwise, request location permissions from the user.
-        PermissionUtils.requestLocationPermissions(this.requireActivity(), LOCATION_PERMISSION_REQUEST_CODE, true);
-        // [END maps_check_location_permission]
+    private boolean hasLocationPermission() {
+        return ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED;
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
-                                           @NonNull int[] grantResults) {
-        if (requestCode != LOCATION_PERMISSION_REQUEST_CODE) {
-            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-            return;
+    private void startTrackingService() {
+        Intent serviceIntent = new Intent(getContext(), LocationTrackingService.class);
+        requireContext().startService(serviceIntent);
+        Toast.makeText(requireContext(), "Location tracking started", Toast.LENGTH_SHORT).show();
+    }
+
+    private void stopTrackingService() {
+        Intent serviceIntent = new Intent(getContext(), LocationTrackingService.class);
+        requireContext().stopService(serviceIntent);
+        Toast.makeText(requireContext(), "Location tracking stopped", Toast.LENGTH_SHORT).show();
+    }
+
+    private static class ViewHolder extends RecyclerView.ViewHolder {
+        private final TextView name;
+        private final TextView surname;
+
+        public ViewHolder(ItemYourSeniorsBinding binding) {
+            super(binding.getRoot());
+            this.name = binding.tvName;
+            this.surname = binding.tvSurname;
+
+            binding.getRoot().setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                }
+            });
         }
 
-        if (PermissionUtils.isPermissionGranted(permissions, grantResults,
-                Manifest.permission.ACCESS_FINE_LOCATION) || PermissionUtils
-                .isPermissionGranted(permissions, grantResults,
-                        Manifest.permission.ACCESS_COARSE_LOCATION)) {
-            // Enable the my location layer if the permission has been granted.
-            enableMyLocation();
-        } else {
-            // Permission was denied. Display an error message
-            // [START_EXCLUDE]
-            // Display the missing permission error dialog when the fragments resume.
-            permissionDenied = true;
-            // [END_EXCLUDE]
+        public interface OnClickListener {
+            void onClick();
         }
     }
 
 
-    /**
-     * Displays a dialog with error message explaining that the location permission is missing.
-     */
-    private void showMissingPermissionError() {
-        PermissionUtils.PermissionDeniedDialog
-                .newInstance(true).show(getChildFragmentManager(), "dialog");
-    }
 
-    private void getCurrentLocation() {
-        if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            // Permission is granted, get the last known location
-            fusedLocationClient.getLastLocation()
-                    .addOnCompleteListener(new OnCompleteListener<Location>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Location> task) {
-                            Location location = task.getResult();
-                            if (location != null) {
-                                // Display the location coordinates in the TextView
-                                lat = location.getLatitude();
-                                lon = location.getLongitude();
-                                String locationText = "Latitude: " + lat + "\nLongitude: " + lon;
-                                Toast.makeText(requireContext(), locationText, Toast.LENGTH_LONG).show();
+    private static class SeniorsAdapter extends RecyclerView.Adapter<HomeFragment.ViewHolder> {
+        private ArrayList<User> seniors;
 
-                            } else {
-                                Toast.makeText(requireContext(), "Location not found", Toast.LENGTH_LONG).show();
-                            }
-                        }
-                    });
-        } else {
-            // Handle case when permission is denied
-            Toast.makeText(requireContext(), "Location permission denied", Toast.LENGTH_LONG).show();
+        public SeniorsAdapter(ArrayList<User> seniors) {
+            this.seniors = seniors;
+        }
+
+        @Override
+        public HomeFragment.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            return new HomeFragment.ViewHolder(
+                    ItemYourSeniorsBinding.inflate(
+                            LayoutInflater.from(parent.getContext()), parent, false
+                    ));
+        }
+
+        @Override
+        public void onBindViewHolder(HomeFragment.ViewHolder holder, int position) {
+            holder.name.setText(seniors.get(position).getFirstname());
+            holder.surname.setText(seniors.get(position).getLastname());
+        }
+
+        @Override
+        public int getItemCount() {
+            return seniors.size();
+        }
+
+        public interface OnClickListener {
+            void onClick();
         }
     }
 
 
-    private void broadcastLocation() {
-        getCurrentLocation();
-        viewModel.writeLocationData(UserModel.getInstance().user.getId(), lon, lat);
-
-    }
 
     @Override
     public void onDestroyView() {
