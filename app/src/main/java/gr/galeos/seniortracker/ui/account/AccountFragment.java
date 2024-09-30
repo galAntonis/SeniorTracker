@@ -12,12 +12,8 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
-import org.greenrobot.eventbus.EventBus;
-
 import gr.galeos.seniortracker.R;
 import gr.galeos.seniortracker.databinding.FragmentAccountBinding;
-import gr.galeos.seniortracker.utils.Constants;
-import gr.galeos.seniortracker.utils.MessageEvent;
 import gr.galeos.seniortracker.utils.SharedPreferencesUtils;
 
 public class AccountFragment extends Fragment {
@@ -48,21 +44,11 @@ public class AccountFragment extends Fragment {
     }
 
     private void setupObservers() {
-        viewModel.data().observe(getViewLifecycleOwner(), data -> {
-            if (data) {
-                viewModel.getAccountType(SharedPreferencesUtils.retrieveSessionId());
-            } else {
-                Toast.makeText(getContext(), "Account activation failed", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        viewModel.getType().observe(getViewLifecycleOwner(), type -> {
-            if (type != null) {
-                SharedPreferencesUtils.saveAccountType(type);
+        viewModel.createdUserData().observe(getViewLifecycleOwner(), found -> {
+            if (found) {
                 Navigation.findNavController(binding.getRoot()).navigate(R.id.action_navigate_from_account_to_home);
-                EventBus.getDefault().post(new MessageEvent(Constants.USER_LOGGED_IN));
             } else {
-                // Error
+                Toast.makeText(getContext(), "Error", Toast.LENGTH_SHORT).show();
             }
         });
     }

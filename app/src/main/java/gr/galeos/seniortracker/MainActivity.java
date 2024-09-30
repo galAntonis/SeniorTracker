@@ -1,6 +1,5 @@
 package gr.galeos.seniortracker;
 
-
 import android.os.Bundle;
 import android.view.View;
 
@@ -29,7 +28,6 @@ public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
     private AppBarConfiguration appBarConfiguration;
     private NavController navController;
-    private MainViewModel viewModel;
     BottomNavigationView navView;
 
     @Override
@@ -40,11 +38,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         navView = binding.navView;
-        // Set Toolbar
         setSupportActionBar(binding.toolbar);
 
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
         appBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.fragment_home, R.id.fragment_dashboard, R.id.fragment_maps, R.id.fragment_notifications)
                 .build();
@@ -55,17 +50,16 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferencesUtils.initSharedPreferences(this.getApplicationContext());
 
         destinationListener(navController);
-
     }
-
 
     private void destinationListener(@NonNull NavController navController) {
         navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
-            if (getSupportActionBar() != null) {  // Check if the ActionBar is available
-               if(destination.getId() == R.id.fragment_home){
+            if (getSupportActionBar() != null) {
+                // Your existing destination change logic
+                if (destination.getId() == R.id.fragment_home) {
                     navView.setVisibility(View.VISIBLE);
                     getSupportActionBar().hide();
-                }else if (destination.getId() == R.id.fragment_maps) {
+                } else if (destination.getId() == R.id.fragment_maps) {
                     navView.setVisibility(View.VISIBLE);
                     getSupportActionBar().hide();
                 } else if (destination.getId() == R.id.fragment_dashboard) {
@@ -82,9 +76,22 @@ public class MainActivity extends AppCompatActivity {
                 } else if (destination.getId() == R.id.fragment_login) {
                     navView.setVisibility(View.GONE);
                     getSupportActionBar().hide();
+                } else if (destination.getId() == R.id.fragment_settings) {
+                    navView.setVisibility(View.GONE);
+                    getSupportActionBar().show();
+                    getSupportActionBar().setTitle("Settings");
                 } else if (destination.getId() == R.id.fragment_account) {
                     navView.setVisibility(View.GONE);
-                    getSupportActionBar().hide();
+                    getSupportActionBar().show();
+                    getSupportActionBar().setTitle("My Account");
+                } else if (destination.getId() == R.id.fragment_manage_seniors) {
+                    navView.setVisibility(View.GONE);
+                    getSupportActionBar().show();
+                    getSupportActionBar().setTitle("Manage Seniors");
+                } else if (destination.getId() == R.id.fragment_add_senior) {
+                    navView.setVisibility(View.GONE);
+                    getSupportActionBar().show();
+                    getSupportActionBar().setTitle("Add Senior");
                 }
             }
         });
@@ -92,19 +99,20 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onSupportNavigateUp() {
-        return navController.navigateUp();
+        return navController.navigateUp() || super.onSupportNavigateUp();
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(MessageEvent event) {
-        if (Objects.equals(event.message, Constants.USER_LOGGED_IN)){
+        if (Objects.equals(event.message, Constants.USER_LOGGED_IN)) {
             showServices();
         } else {
             hideServices();
         }
     }
 
-    @Override public void onStart() {
+    @Override
+    public void onStart() {
         super.onStart();
         EventBus.getDefault().register(this);
     }
@@ -112,6 +120,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onPostResume() {
         super.onPostResume();
+        // Check session validity once when resuming activity
         if (SharedPreferencesUtils.isSessionIdValid()) {
             EventBus.getDefault().post(new MessageEvent(Constants.USER_LOGGED_IN));
         } else {
@@ -130,5 +139,11 @@ public class MainActivity extends AppCompatActivity {
         navView.getMenu().findItem(R.id.fragment_dashboard).setEnabled(false);
         navView.getMenu().findItem(R.id.fragment_maps).setEnabled(false);
         navView.getMenu().findItem(R.id.fragment_notifications).setEnabled(false);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        EventBus.getDefault().unregister(this); // Unregister EventBus to prevent memory leaks
     }
 }

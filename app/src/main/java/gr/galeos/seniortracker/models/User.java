@@ -1,6 +1,7 @@
 package gr.galeos.seniortracker.models;
 
 public class User {
+    private User user = null;
 
     String id,firstname, lastname, email, phone, accountType;
 
@@ -12,6 +13,7 @@ public class User {
         this.phone = phone;
         this.accountType = accountType;
     }
+
 
     public String getId() {
         return id;

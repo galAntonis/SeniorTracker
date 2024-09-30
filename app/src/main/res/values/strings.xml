@@ -44,6 +44,8 @@
     <string name="title_maps">Maps</string>
     <string name="empty_fields">You have some empty fields</string>
     <string name="login_failed">Login failed</string>
+    <string name="user_not_found">User not found</string>
+    <string name="title_add_senior">Add senior</string>
 
 
 </resources>

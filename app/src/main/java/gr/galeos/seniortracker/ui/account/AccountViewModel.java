@@ -6,15 +6,13 @@ import androidx.lifecycle.ViewModel;
 
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import gr.galeos.seniortracker.models.User;
+import gr.galeos.seniortracker.UserModel;
 
 public class AccountViewModel extends ViewModel {
 
-    private final MutableLiveData<Boolean> _data = new MutableLiveData<>();
-    public LiveData<Boolean> data() { return _data; }
+    private final MutableLiveData<Boolean> _userData = new MutableLiveData<>();
+    public LiveData<Boolean> createdUserData() { return _userData; }
 
-    private final MutableLiveData<String> _accountType = new MutableLiveData<>();
-    public LiveData<String> getType() { return _accountType; }
 
     FirebaseFirestore db;
 
@@ -23,25 +21,20 @@ public class AccountViewModel extends ViewModel {
     }
 
     public void writeUserData(String id, String firstname, String lastname, String email, String phone, String accountType) {
-        db.collection("users").document(id).set(new User(id, firstname, lastname, email, phone, accountType))
+        UserModel.getInstance().setUser(id, firstname, lastname, email, phone, accountType);
+
+        if (accountType.equals("1")) {
+            db.collection("seniors").document(email).set(UserModel.getInstance().user);
+        }
+        db.collection("users").document(id).set(UserModel.getInstance().user)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
-                        _data.postValue(true);
+                        _userData.postValue(true);
                     } else {
-                        _data.postValue(false);
+                        _userData.postValue(false);
                     }
                 });
     }
 
-    public void getAccountType(String id) {
-        db.collection("users").document(id).get()
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        _accountType.postValue(task.getResult().get("accountType", String.class));
-                    } else {
-                        _accountType.postValue(task.getException().getMessage());
-                    }
-                });
-    }
 
 }

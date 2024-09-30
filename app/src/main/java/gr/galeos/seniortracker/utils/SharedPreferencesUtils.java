@@ -52,23 +52,6 @@ public class SharedPreferencesUtils {
         removeFromSharedPreferences(Constants.USER_TOKEN);
     }
 
-
-    public static void saveAccountType(String type) {
-        writeToSharedPreferences(Constants.USER_TYPE, type);
-    }
-
-    public static String retrieveAccountType() {
-        return readFromSharedPreferences(Constants.USER_TYPE);
-    }
-
-    public static boolean isAccountTypeValid() {
-        return retrieveAccountType() != null;
-    }
-
-    public static void invalidateAccountType() {
-        removeFromSharedPreferences(Constants.USER_TYPE);
-    }
-
     public static void saveSkipLogin(boolean isSkipped) {
         writeToSharedPreferencesBoolean(Constants.USER_SKIP_LOGIN, isSkipped);
     }

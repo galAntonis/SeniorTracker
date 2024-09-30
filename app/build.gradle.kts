@@ -57,6 +57,7 @@ secrets {
 dependencies {
 
     implementation("com.google.firebase:firebase-firestore:25.1.0")
+    implementation("com.google.firebase:firebase-database:21.0.0")
     val activityVersion = "1.8.2"
     val androidCoreVersion = "1.12.0"
     val appCompatVersion = "1.6.1"
@@ -103,7 +104,6 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.2")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.2")
 
-    implementation("com.google.android.gms:play-services-maps:19.0.0")
 
     // Maps SDK for Android
     implementation("com.mapbox.maps:android:11.4.1")
@@ -113,4 +113,9 @@ dependencies {
 
     // Events
     implementation("org.greenrobot:eventbus:3.3.1")
+
+    // Play services
+    implementation("com.google.android.gms:play-services-location:21.3.0")
+    implementation("com.google.android.gms:play-services-maps:19.0.0")
+
 }
