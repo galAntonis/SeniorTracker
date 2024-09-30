@@ -244,6 +244,14 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
 
+        <action
+            android:id="@+id/action_navigate_from_manage_seniors_to_edit_senior"
+            app:destination="@id/fragment_edit_senior"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
     </fragment>
 
     <fragment
@@ -257,5 +265,11 @@
         android:name="gr.galeos.seniortracker.ui.addSenior.AddSeniorFragment"
         android:label="@string/title_add_senior"
         tools:layout="@layout/fragment_add_senior" />
+
+    <fragment
+        android:id="@+id/fragment_edit_senior"
+        android:name="gr.galeos.seniortracker.ui.editSenior.EditSeniorFragment"
+        android:label="@string/title_edit_senior"
+        tools:layout="@layout/fragment_edit_senior" />
 
 </navigation>
