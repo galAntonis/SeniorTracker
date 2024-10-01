@@ -218,6 +218,14 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
 
+        <action
+            android:id="@+id/action_navigation_settings_to_language"
+            app:destination="@id/fragment_language"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
     </fragment>
 
     <fragment
@@ -279,5 +287,11 @@
         android:name="gr.galeos.seniortracker.ui.editSenior.EditSeniorFragment"
         android:label="@string/title_edit_senior"
         tools:layout="@layout/fragment_edit_senior" />
+
+    <fragment
+        android:id="@+id/fragment_language"
+        android:name="gr.galeos.seniortracker.ui.language.LanguageFragment"
+        android:label="fragment_language"
+        tools:layout="@layout/fragment_language" />
 
 </navigation>
