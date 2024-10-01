@@ -92,6 +92,14 @@ public class MainActivity extends AppCompatActivity {
                     navView.setVisibility(View.GONE);
                     getSupportActionBar().show();
                     getSupportActionBar().setTitle("Add Senior");
+                } else if (destination.getId() == R.id.fragment_edit_senior) {
+                    navView.setVisibility(View.GONE);
+                    getSupportActionBar().show();
+                    getSupportActionBar().setTitle("Edit Senior");
+                } else if (destination.getId() == R.id.fragment_history) {
+                    navView.setVisibility(View.GONE);
+                    getSupportActionBar().show();
+                    getSupportActionBar().setTitle("Location History");
                 }
             }
         });

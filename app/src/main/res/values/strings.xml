@@ -37,6 +37,7 @@
     <string name="phone_number_placeholder">Phone number</string>
     <string name="email">Email</string>
     <string name="create_account">Activate account</string>
+    <string name="save_changes">Save changes</string>
     <string name="account_prompt">Fill the fields below to activate account</string>
     <string name="supervisor">Supervisor</string>
     <string name="senior">Senior</string>
@@ -46,6 +47,8 @@
     <string name="login_failed">Login failed</string>
     <string name="user_not_found">User not found</string>
     <string name="title_add_senior">Add senior</string>
+    <string name="title_edit_senior">Edit senior</string>
+    <string name="my_seniors">My Seniors</string>
 
 
 </resources>

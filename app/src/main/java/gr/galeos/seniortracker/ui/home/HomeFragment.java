@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -183,24 +184,23 @@ public class HomeFragment extends Fragment {
     private static class ViewHolder extends RecyclerView.ViewHolder {
         private final TextView name;
         private final TextView surname;
+        private final ImageView ivSettings;
 
         public ViewHolder(ItemYourSeniorsBinding binding) {
             super(binding.getRoot());
             this.name = binding.tvName;
             this.surname = binding.tvSurname;
-
-            binding.getRoot().setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                }
-            });
+            this.ivSettings = binding.ivSettings;
         }
 
-        public interface OnClickListener {
-            void onClick();
+        public void bind(User senior, View.OnClickListener listener) {
+            name.setText(senior.getFirstname());
+            surname.setText(senior.getLastname());
+            ivSettings.setOnClickListener(listener);
         }
     }
+
+
 
 
 
@@ -221,17 +221,17 @@ public class HomeFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(HomeFragment.ViewHolder holder, int position) {
-            holder.name.setText(seniors.get(position).getFirstname());
-            holder.surname.setText(seniors.get(position).getLastname());
+            User senior = seniors.get(position);
+            holder.bind(senior, v -> {
+                Bundle bundle = new Bundle();
+                bundle.putString("seniorId", senior.getId());
+                Navigation.findNavController(v).navigate(R.id.action_nagigate_from_home_to_edit_senior, bundle);
+            });
         }
 
         @Override
         public int getItemCount() {
             return seniors.size();
-        }
-
-        public interface OnClickListener {
-            void onClick();
         }
     }
 
