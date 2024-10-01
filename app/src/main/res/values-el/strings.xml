@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">SeniorTracker</string>
+    <string name="welcome_home_title">Καλώς ήρθατε στο SeniorTracker</string>
+    <string name="welcome_home_subtitle">Κρατήστε τα αγαπημένα σας πρόσωπα ασφαλή και προστατευμένα</string>
+
+    <string name="title_home">Αρχική</string>
+    <string name="title_dashboard">Πίνακας Ελέγχου</string>
+    <string name="title_notifications">Ειδοποιήσεις</string>
+    <string name="location_permission_denied">Η άδεια τοποθεσίας απορρίφθηκε\n</string>
+    <string name="permission_required_toast">Απαιτείται άδεια</string>
+    <string name="permission_rationale_location">Αιτιολόγηση άδειας για τοποθεσία</string>
+
+    <string name="dashboard_history">Ιστορικό Τοποθεσίας</string>
+    <string name="dashboard_view_places">Προβολή τοποθεσιών</string>
+    <string name="dashboard_manage_places">Διαχείριση τοποθεσιών</string>
+    <string name="dashboard_manage_seniors">Διαχείριση ηλικιωμένων</string>
+    <string name="dashboard_settings">Ρυθμίσεις</string>
+
+    <string name="title_settings">Ρυθμίσεις</string>
+    <string name="title_history">Ιστορικό Τοποθεσίας</string>
+    <string name="title_manage_places">Διαχείριση τοποθεσιών</string>
+    <string name="title_view_places">Προβολή τοποθεσιών</string>
+    <string name="title_manage_seniors">Διαχείριση ηλικιωμένων</string>
+    <string name="login_title">Καλώς ήρθατε στο SeniorTracker</string>
+    <string name="login_subtitle">Συνδεθείτε ή εγγραφείτε</string>
+    <string name="email_placeholder">Ηλεκτρονικό ταχυδρομείο</string>
+    <string name="invalid_credentials">Μη έγκυρα διαπιστευτήρια</string>
+    <string name="password_placeholder">Κωδικός πρόσβασης</string>
+    <string name="login">Σύνδεση</string>
+    <string name="notice">Δημιουργώντας έναν λογαριασμό, συμφωνείτε με τους Όρους Χρήσης και την Πολιτική Απορρήτου του SeniorTracker</string>
+    <string name="retype_password_placeholder">Επανεισάγετε τον κωδικό πρόσβασης</string>
+    <string name="signup">Εγγραφή</string>
+    <string name="has_account">Έχετε ήδη λογαριασμό;</string>
+    <string name="first_time">Είναι η πρώτη σας φορά εδώ;</string>
+    <string name="name">Όνομα</string>
+    <string name="surname">Επώνυμο</string>
+    <string name="phone_number_placeholder">Αριθμός τηλεφώνου</string>
+    <string name="email">Ηλεκτρονικό ταχυδρομείο</string>
+    <string name="create_account">Ενεργοποίηση λογαριασμού</string>
+    <string name="save_changes">Αποθήκευση αλλαγών</string>
+    <string name="account_prompt">Συμπληρώστε τα παρακάτω πεδία για να ενεργοποιήσετε το λογαριασμό</string>
+    <string name="supervisor">Επιβλέπων</string>
+    <string name="senior">Ηλικιωμένος</string>
+    <string name="account_type">Επιλέξτε τον τύπο λογαριασμού</string>
+    <string name="title_maps">Χάρτες</string>
+    <string name="empty_fields">Υπάρχουν κενά πεδία</string>
+    <string name="login_failed">Η σύνδεση απέτυχε</string>
+    <string name="user_not_found">Ο χρήστης δεν βρέθηκε</string>
+    <string name="title_add_senior">Προσθήκη ηλικιωμένου</string>
+    <string name="title_edit_senior">Επεξεργασία ηλικιωμένου</string>
+    <string name="my_seniors">Οι ηλικιωμένοι μου</string>
+    <string name="select_language">Επιλογή γλώσσας</string>
+    <string name="english">Αγγλικά</string>
+    <string name="greek">Ελληνικά</string>
+
+    <string name="dashboard_title">Πίνακας Ελέγχου</string>
+    <string name="notifications_title">Ειδοποιήσεις</string>
+    <string name="settings_title">Ρυθμίσεις</string>
+    <string name="my_account_title">Ο Λογαριασμός Μου</string>
+    <string name="manage_seniors_title">Διαχείριση Χρηστών</string>
+    <string name="add_senior_title">Προσθήκη Χρήστη</string>
+    <string name="edit_senior_title">Επεξεργασία Χρήστη</string>
+    <string name="location_history_title">Ιστορικό Τοποθεσίας</string>
+    <string name="choose_language_title">Επιλογή Γλώσσας</string>
+
+</resources>

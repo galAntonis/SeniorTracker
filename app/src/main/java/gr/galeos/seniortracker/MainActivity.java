@@ -65,11 +65,11 @@ public class MainActivity extends AppCompatActivity {
                 } else if (destination.getId() == R.id.fragment_dashboard) {
                     navView.setVisibility(View.VISIBLE);
                     getSupportActionBar().show();
-                    getSupportActionBar().setTitle("Dashboard");
+                    getSupportActionBar().setTitle(R.string.dashboard_title);
                 } else if (destination.getId() == R.id.fragment_notifications) {
                     navView.setVisibility(View.VISIBLE);
                     getSupportActionBar().show();
-                    getSupportActionBar().setTitle("Notifications");
+                    getSupportActionBar().setTitle(R.string.notifications_title);
                 } else if (destination.getId() == R.id.fragment_signup) {
                     navView.setVisibility(View.GONE);
                     getSupportActionBar().hide();
@@ -79,27 +79,31 @@ public class MainActivity extends AppCompatActivity {
                 } else if (destination.getId() == R.id.fragment_settings) {
                     navView.setVisibility(View.GONE);
                     getSupportActionBar().show();
-                    getSupportActionBar().setTitle("Settings");
+                    getSupportActionBar().setTitle(R.string.settings_title);
                 } else if (destination.getId() == R.id.fragment_account) {
                     navView.setVisibility(View.GONE);
                     getSupportActionBar().show();
-                    getSupportActionBar().setTitle("My Account");
+                    getSupportActionBar().setTitle(R.string.my_account_title);
                 } else if (destination.getId() == R.id.fragment_manage_seniors) {
                     navView.setVisibility(View.GONE);
                     getSupportActionBar().show();
-                    getSupportActionBar().setTitle("Manage Seniors");
+                    getSupportActionBar().setTitle(R.string.manage_seniors_title);
                 } else if (destination.getId() == R.id.fragment_add_senior) {
                     navView.setVisibility(View.GONE);
                     getSupportActionBar().show();
-                    getSupportActionBar().setTitle("Add Senior");
+                    getSupportActionBar().setTitle(R.string.add_senior_title);
                 } else if (destination.getId() == R.id.fragment_edit_senior) {
                     navView.setVisibility(View.GONE);
                     getSupportActionBar().show();
-                    getSupportActionBar().setTitle("Edit Senior");
+                    getSupportActionBar().setTitle(R.string.edit_senior_title);
                 } else if (destination.getId() == R.id.fragment_history) {
                     navView.setVisibility(View.GONE);
                     getSupportActionBar().show();
-                    getSupportActionBar().setTitle("Location History");
+                    getSupportActionBar().setTitle(R.string.location_history_title);
+                } else if (destination.getId() == R.id.fragment_language) {
+                    navView.setVisibility(View.GONE);
+                    getSupportActionBar().show();
+                    getSupportActionBar().setTitle(R.string.choose_language_title);
                 }
             }
         });

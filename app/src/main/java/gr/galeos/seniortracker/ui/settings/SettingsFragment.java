@@ -40,6 +40,9 @@ public class SettingsFragment extends Fragment {
         binding.accountOption.setOnClickListener(v -> {
             Navigation.findNavController(v).navigate(R.id.action_navigation_settings_to_account);
         });
+        binding.languageOption.setOnClickListener(v -> {
+            Navigation.findNavController(v).navigate(R.id.action_navigation_settings_to_language);
+        });
         binding.exitOption.setOnClickListener(v -> {
             SharedPreferencesUtils.invalidateSessionId();
             EventBus.getDefault().post(new MessageEvent(Constants.USER_LOGOUT));

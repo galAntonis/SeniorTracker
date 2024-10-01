@@ -50,5 +50,18 @@
     <string name="title_edit_senior">Edit senior</string>
     <string name="my_seniors">My Seniors</string>
 
+    <string name="select_language">Select Language</string>
+    <string name="english">English</string>
+    <string name="greek">Greek</string>
+    <string name="dashboard_title">Dashboard</string>
+    <string name="notifications_title">Notifications</string>
+    <string name="settings_title">Settings</string>
+    <string name="my_account_title">My Account</string>
+    <string name="manage_seniors_title">Manage Seniors</string>
+    <string name="add_senior_title">Add Senior</string>
+    <string name="edit_senior_title">Edit Senior</string>
+    <string name="location_history_title">Location History</string>
+    <string name="choose_language_title">Choose Language</string>
+
 
 </resources>

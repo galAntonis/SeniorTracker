@@ -22,9 +22,6 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationServices;
-
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
@@ -41,11 +38,7 @@ import gr.galeos.seniortracker.utils.SharedPreferencesUtils;
 
 
 public class HomeFragment extends Fragment {
-    private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
-    private boolean permissionDenied = false;
-    private FusedLocationProviderClient fusedLocationClient;
 
-    private double lat, lon;
 
     private FragmentHomeBinding binding;
     private HomeViewModel viewModel;
@@ -53,7 +46,6 @@ public class HomeFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext());
     }
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

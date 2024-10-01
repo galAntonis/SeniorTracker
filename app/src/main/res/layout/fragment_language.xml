@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.language.LanguageFragment">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/language_selection_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/fragment_padding"
+        android:layout_marginTop="@dimen/fragment_padding"
+        android:layout_marginBottom="8dp"
+        android:text="@string/select_language"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/fragment_padding"
+        app:cardElevation="4dp">
+
+        <RadioGroup
+            android:id="@+id/radioGroupLanguage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/fragment_padding"
+            android:orientation="vertical"
+            android:padding="@dimen/fragment_padding">
+
+            <RadioButton
+                android:id="@+id/radioEnglish"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/english"
+                android:textSize="20sp"
+                app:buttonTint="@color/stMain"/>
+
+            <RadioButton
+                android:id="@+id/radioGreek"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/greek"
+                android:textSize="20sp"
+                app:buttonTint="@color/stMain"/>
+        </RadioGroup>
+
+    </com.google.android.material.card.MaterialCardView>
+
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/save_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/fragment_padding"
+        android:text="@string/save_changes" />
+
+</LinearLayout>
