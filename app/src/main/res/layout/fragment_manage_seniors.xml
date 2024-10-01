@@ -15,7 +15,8 @@
             android:id="@+id/cvAddSeniors"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="@dimen/fragment_padding"
+            android:layout_marginHorizontal="@dimen/fragment_padding"
+            android:layout_marginTop="@dimen/fragment_padding"
             app:cardElevation="4dp">
 
             <LinearLayout
@@ -44,11 +45,24 @@
 
         </com.google.android.material.card.MaterialCardView>
 
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/fragment_padding"
+            android:layout_marginTop="@dimen/between_elements_margin"
+            android:text="@string/my_seniors"
+            android:textSize="22sp"
+            android:textStyle="bold" />
+
+
+
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cvMySeniors"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/fragment_padding"
+            android:layout_marginTop="8dp"
+            android:layout_marginHorizontal="@dimen/fragment_padding"
+            android:layout_marginBottom="@dimen/fragment_padding"
             app:cardElevation="4dp">
 
             <androidx.recyclerview.widget.RecyclerView

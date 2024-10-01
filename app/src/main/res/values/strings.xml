@@ -48,6 +48,7 @@
     <string name="user_not_found">User not found</string>
     <string name="title_add_senior">Add senior</string>
     <string name="title_edit_senior">Edit senior</string>
+    <string name="my_seniors">My Seniors</string>
 
 
 </resources>
