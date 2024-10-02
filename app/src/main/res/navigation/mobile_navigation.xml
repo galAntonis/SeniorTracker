@@ -238,7 +238,17 @@
         android:id="@+id/fragment_manage_places"
         android:name="gr.galeos.seniortracker.ui.managePlaces.ManagePlacesFragment"
         android:label="@string/title_manage_places"
-        tools:layout="@layout/fragment_manage_places" />
+        tools:layout="@layout/fragment_manage_places">
+
+        <action
+            android:id="@+id/action_navigate_from_manage_places_to_add_geofence"
+            app:destination="@id/fragment_add_geofence"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
+    </fragment>
 
     <fragment
         android:id="@+id/fragment_view_places"
@@ -299,5 +309,11 @@
         android:name="gr.galeos.seniortracker.ui.account.AccountSettingsFragment"
         android:label="@string/title_account_settings"
         tools:layout="@layout/fragment_account" />
+
+    <fragment
+        android:id="@+id/fragment_add_geofence"
+        android:name="gr.galeos.seniortracker.ui.addGeofence.AddGeofenceFragment"
+        android:label="@string/title_add_geofence"
+        tools:layout="@layout/fragment_add_geofence" />
 
 </navigation>

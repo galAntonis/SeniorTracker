@@ -63,8 +63,8 @@ public class DashboardFragment extends Fragment {
             binding.historyTile.getRoot().setEnabled(true);
             binding.viewFencesTile.getRoot().setAlpha(0.5f);
             binding.viewFencesTile.getRoot().setEnabled(false);
-            binding.manageFencesTile.getRoot().setAlpha(0.5f);
-            binding.manageFencesTile.getRoot().setEnabled(false);
+            binding.manageFencesTile.getRoot().setAlpha(1f);
+            binding.manageFencesTile.getRoot().setEnabled(true);
             binding.manageSeniorsTile.getRoot().setAlpha(1f);
             binding.manageSeniorsTile.getRoot().setEnabled(true);
         }
