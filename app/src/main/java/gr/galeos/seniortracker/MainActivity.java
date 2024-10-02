@@ -104,6 +104,10 @@ public class MainActivity extends AppCompatActivity {
                     navView.setVisibility(View.GONE);
                     getSupportActionBar().show();
                     getSupportActionBar().setTitle(R.string.choose_language_title);
+                } else if(destination.getId() == R.id.fragment_account_settings) {
+                    navView.setVisibility(View.GONE);
+                    getSupportActionBar().show();
+                    getSupportActionBar().setTitle(R.string.my_account_title);
                 }
             }
         });
