@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,20 +20,22 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 import gr.galeos.seniortracker.R;
 import gr.galeos.seniortracker.UserModel;
 import gr.galeos.seniortracker.databinding.FragmentAddGeofenceBinding;
 import gr.galeos.seniortracker.utils.PermissionUtils;
 
-public class AddGeofenceFragment extends Fragment implements OnMapReadyCallback, GoogleMap.OnMyLocationButtonClickListener, GoogleMap.OnMyLocationClickListener {
+public class AddGeofenceFragment extends Fragment implements OnMapReadyCallback,
+        GoogleMap.OnMyLocationButtonClickListener, GoogleMap.OnMyLocationClickListener {
 
     private FragmentAddGeofenceBinding binding;
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
-
     private GoogleMap map;
     private boolean permissionDenied = false;
-
+    private Marker centerMarker;  // Marker to track the center
 
     private AddGeofenceViewModel viewModel; // ViewModel to handle location data
 
@@ -51,6 +54,7 @@ public class AddGeofenceFragment extends Fragment implements OnMapReadyCallback,
         super.onViewCreated(view, savedInstanceState);
         setupViewModel();
         setupMap();
+        setupButtonClick();  // Setup button click action
     }
 
     private void setupViewModel() {
@@ -65,6 +69,19 @@ public class AddGeofenceFragment extends Fragment implements OnMapReadyCallback,
         }
     }
 
+    private void setupButtonClick() {
+        // When the button is clicked, capture the center marker's position
+        binding.markGeofenceButton.setOnClickListener(v -> {
+            if (centerMarker != null) {
+                LatLng markerPosition = centerMarker.getPosition();
+                double lat = markerPosition.latitude;
+                double lon = markerPosition.longitude;
+                // Do something with lat and lon, e.g., send to ViewModel or display
+                // For now, let's just log it
+                Log.d("AddGeofenceFragment", "Lat: " + lat + ", Lon: " + lon);
+            }
+        });
+    }
 
     @Override
     public void onDestroyView() {
@@ -72,18 +89,29 @@ public class AddGeofenceFragment extends Fragment implements OnMapReadyCallback,
         binding = null;
     }
 
-
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
         LatLng lastKnownLatLng = new LatLng(37.9838877, 23.7279186);
         map = googleMap;
         map.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(lastKnownLatLng, 18));
+
+        // Set the center marker at the initial position of the map's center
+        centerMarker = map.addMarker(new MarkerOptions().position(map.getCameraPosition().target).draggable(false));
+
         if (!UserModel.getInstance().user.getAccountType().equals("0")) {
             map.setOnMyLocationButtonClickListener(this);
             map.setOnMyLocationClickListener(this);
             enableMyLocation();
         }
+
+        // Update marker position when the map moves
+        map.setOnCameraMoveListener(() -> {
+            if (centerMarker != null) {
+                // Set the marker at the new center of the map
+                centerMarker.setPosition(map.getCameraPosition().target);
+            }
+        });
     }
 
     @SuppressLint("MissingPermission")
@@ -104,7 +132,7 @@ public class AddGeofenceFragment extends Fragment implements OnMapReadyCallback,
 
     @Override
     public void onMyLocationClick(@NonNull Location location) {
-
+        // You can handle location clicks here if needed
     }
 
     @Override
