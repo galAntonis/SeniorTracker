@@ -13,6 +13,7 @@ import androidx.navigation.Navigation;
 import org.greenrobot.eventbus.EventBus;
 
 import gr.galeos.seniortracker.R;
+import gr.galeos.seniortracker.UserModel;
 import gr.galeos.seniortracker.databinding.FragmentSettingsBinding;
 import gr.galeos.seniortracker.utils.Constants;
 import gr.galeos.seniortracker.utils.MessageEvent;
@@ -32,7 +33,18 @@ public class SettingsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
         super.onViewCreated(view, savedInstanceState);
+        initUi();
         setClickListeners();
+    }
+
+    private void initUi() {
+        if (UserModel.getInstance().user.getAccountType().equals("0")){
+            binding.accountOption.setAlpha(1f);
+            binding.accountOption.setEnabled(true);
+        }else if (UserModel.getInstance().user.getAccountType().equals("1")){
+            binding.accountOption.setAlpha(0.5f);
+            binding.accountOption.setEnabled(false);
+        }
     }
 
     private void setClickListeners() {
