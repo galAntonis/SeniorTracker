@@ -69,6 +69,16 @@
     <string name="add_geofence">Add Geofence</string>
     <string name="title_add_geofence">Add Geofence</string>
     <string name="mark_geofence">Mark Geofence</string>
+    <string name="title_geofence_details">Create Geofence</string>
+    <string name="location">Location Name</string>
+    <string name="latitude">Latitude:</string>
+    <string name="longitude">Longitude:</string>
+    <string name="radius">Radius in meters:</string>
+    <string name="create_geofence">Create Geofence</string>
+    <string name="your_senior_email">Your senior email</string>
+    <string name="location_hint">Type in the name of the location</string>
+    <string name="geofence_email_hint">Type in your seniors email</string>
+    <string name="choose_senior">Choose senior</string>
 
 
 </resources>

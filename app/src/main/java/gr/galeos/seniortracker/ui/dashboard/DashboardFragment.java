@@ -81,7 +81,7 @@ public class DashboardFragment extends Fragment {
 
         binding.historyTile.getRoot().setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.action_navigation_dashboard_to_navigation_history));
         binding.viewFencesTile.getRoot().setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.action_navigation_dashboard_to_navigation_view_places));
-        binding.manageFencesTile.getRoot().setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.action_navigation_dashboard_to_navigation_manage_places));
+        binding.manageFencesTile.getRoot().setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.action_navigate_from_dashboard_to_choose_senior));
         binding.manageSeniorsTile.getRoot().setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.action_navigation_dashboard_to_navigation_manage_seniors));
         binding.settingsTile.getRoot().setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.action_navigation_dashboard_to_navigation_settings));
 

@@ -8,6 +8,7 @@
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
 
 
+
     <application
         android:name=".App"
         android:allowBackup="true"
@@ -19,6 +20,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SeniorTracker"
         tools:targetApi="34">
+
+        <receiver android:name=".utils.GeofenceBroadcastReceiver" android:exported="false"/>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

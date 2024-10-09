@@ -162,12 +162,12 @@
             app:popExitAnim="@anim/slide_out_right" />
 
         <action
-            android:id="@+id/action_navigation_dashboard_to_navigation_manage_places"
-            app:destination="@id/fragment_manage_places"
+            android:id="@+id/action_navigate_from_dashboard_to_choose_senior"
+            app:destination="@id/fragment_choose_senior"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
+            app:popExitAnim="@anim/slide_out_right"/>
 
         <action
             android:id="@+id/action_navigation_dashboard_to_navigation_manage_seniors"
@@ -248,6 +248,14 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
 
+        <action
+            android:id="@+id/action_navigate_from_manage_places_to_geofence_details_fragment"
+            app:destination="@id/fragment_geofence_details"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
     </fragment>
 
     <fragment
@@ -314,6 +322,38 @@
         android:id="@+id/fragment_add_geofence"
         android:name="gr.galeos.seniortracker.ui.addGeofence.AddGeofenceFragment"
         android:label="@string/title_add_geofence"
-        tools:layout="@layout/fragment_add_geofence" />
+        tools:layout="@layout/fragment_add_geofence" >
+
+        <action
+            android:id="@+id/action_navigate_from_add_geofence_to_geofence_details"
+            app:destination="@id/fragment_geofence_details"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragment_geofence_details"
+        android:name="gr.galeos.seniortracker.ui.geofenceDetails.GeofenceDetailsFragment"
+        android:label="@string/title_geofence_details"
+        tools:layout="@layout/fragment_geofence_details" />
+
+    <fragment
+        android:id="@+id/fragment_choose_senior"
+        android:name="gr.galeos.seniortracker.ui.chooseSenior.ChooseSeniorFragment"
+        android:label="@string/choose_senior"
+        tools:layout="@layout/fragment_choose_senior" >
+
+        <action
+            android:id="@+id/action_navigate_from_choose_senior_to_manage_places"
+            app:destination="@id/fragment_manage_places"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
+    </fragment>
 
 </navigation>

@@ -108,6 +108,14 @@ public class MainActivity extends AppCompatActivity {
                     navView.setVisibility(View.GONE);
                     getSupportActionBar().show();
                     getSupportActionBar().setTitle(R.string.my_account_title);
+                } else if (destination.getId() == R.id.fragment_manage_places) {
+                    navView.setVisibility(View.GONE);
+                    getSupportActionBar().show();
+                    getSupportActionBar().setTitle(R.string.title_manage_places);
+                } else if (destination.getId() == R.id.fragment_choose_senior) {
+                    navView.setVisibility(View.GONE);
+                    getSupportActionBar().show();
+                    getSupportActionBar().setTitle(R.string.choose_senior);
                 }
             }
         });

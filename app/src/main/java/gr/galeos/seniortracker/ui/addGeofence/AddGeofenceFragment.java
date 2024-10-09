@@ -14,6 +14,7 @@ import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -37,6 +38,8 @@ public class AddGeofenceFragment extends Fragment implements OnMapReadyCallback,
     private boolean permissionDenied = false;
     private Marker centerMarker;  // Marker to track the center
 
+    private String email;
+
     private AddGeofenceViewModel viewModel; // ViewModel to handle location data
 
     @Override
@@ -52,6 +55,12 @@ public class AddGeofenceFragment extends Fragment implements OnMapReadyCallback,
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            email = bundle.getString("email");
+        }
+
         setupViewModel();
         setupMap();
         setupButtonClick();  // Setup button click action
@@ -76,6 +85,11 @@ public class AddGeofenceFragment extends Fragment implements OnMapReadyCallback,
                 LatLng markerPosition = centerMarker.getPosition();
                 double lat = markerPosition.latitude;
                 double lon = markerPosition.longitude;
+                Bundle bundle = new Bundle();
+                bundle.putDouble("lat", lat);
+                bundle.putDouble("lon", lon);
+                bundle.putString("email", email);
+                Navigation.findNavController(v).navigate(R.id.action_navigate_from_add_geofence_to_geofence_details, bundle);
                 // Do something with lat and lon, e.g., send to ViewModel or display
                 // For now, let's just log it
                 Log.d("AddGeofenceFragment", "Lat: " + lat + ", Lon: " + lon);
