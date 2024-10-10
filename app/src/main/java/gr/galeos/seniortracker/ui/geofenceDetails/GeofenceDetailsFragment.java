@@ -84,7 +84,7 @@ public class GeofenceDetailsFragment extends Fragment {
                 email = args.getString("email");
                 radius = args.getInt("radius");
                 initPrefilledFields();
-            }else{
+            } else {
                 latitude = args.getDouble("lat");
                 longitude = args.getDouble("lon");
                 email = args.getString("email");
@@ -113,6 +113,7 @@ public class GeofenceDetailsFragment extends Fragment {
         binding.emailEditText.setEnabled(false);
         binding.nameEditText.setText(geofenceName);
         binding.depositSlider.setValue(radius);
+        binding.depositSlider.setEnabled(false);
         binding.tvRadius.setText(String.format("%sm", radius));
         binding.saveButton.setEnabled(true);
     }
@@ -146,12 +147,24 @@ public class GeofenceDetailsFragment extends Fragment {
                 Toast.makeText(requireContext(), "Failed to store geofence!", Toast.LENGTH_SHORT).show();
             }
         });
+        viewModel.updateGeofence().observe(getViewLifecycleOwner(), updated -> {
+            if (updated) {
+                Toast.makeText(requireContext(), "Geofence updated!", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(requireContext(), "Failed to update geofence!", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void setClickListeners() {
         // Set up click listeners
         binding.saveButton.setOnClickListener(v -> {
-            viewModel.findSenior(email);
+            if (geofenceId != null) {
+                GeofenceModel geofenceModel = new GeofenceModel(binding.nameEditText.getText().toString(), latitude, longitude, (int) radius);
+                viewModel.updateGeofence(email, geofenceId, geofenceModel);
+            } else{
+                viewModel.findSenior(email);
+            }
         });
     }
 
@@ -272,7 +285,7 @@ public class GeofenceDetailsFragment extends Fragment {
                     @Override
                     public void onSuccess(Void aVoid) {
                         long expirationDuration = System.currentTimeMillis() + 5000; // Example expiration
-                        GeofenceModel geofenceModel = new GeofenceModel(binding.nameEditText.getText().toString(),latitude, longitude, (int) radius);
+                        GeofenceModel geofenceModel = new GeofenceModel(binding.nameEditText.getText().toString(), latitude, longitude, (int) radius);
                         viewModel.writeGeofenceToFirestore(binding.emailEditText.getText().toString(), binding.nameEditText.getText().toString(), geofenceModel);
 
                         Toast.makeText(requireContext(), "Geofence added successfully!", Toast.LENGTH_SHORT).show();

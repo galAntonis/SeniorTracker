@@ -25,6 +25,12 @@ public class GeofenceDetailsViewModel extends ViewModel {
         return _storedGeofence;
     }
 
+    private final MutableLiveData<Boolean> _updateGeofence = new MutableLiveData<>();
+
+    public LiveData<Boolean> updateGeofence() {
+        return _updateGeofence;
+    }
+
     public GeofenceDetailsViewModel() {
         db = FirebaseFirestore.getInstance();
     }
@@ -57,6 +63,21 @@ public class GeofenceDetailsViewModel extends ViewModel {
                 })
                 .addOnFailureListener(e -> {
                     _storedGeofence.setValue(false);
+                });
+    }
+
+    public void updateGeofence(String email, String documentId, GeofenceModel updatedGeofence) {
+        // Update the geofence document in Firestore
+        db.collection("geofences")
+                .document(email)
+                .collection("my_geofences")
+                .document(documentId)
+                .set(updatedGeofence.toMap())
+                .addOnSuccessListener(aVoid -> {
+                    _updateGeofence.setValue(true);
+                })
+                .addOnFailureListener(e -> {
+                    _updateGeofence.setValue(false);
                 });
     }
 }
