@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -25,11 +27,16 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.ArrayList;
+
 import gr.galeos.seniortracker.R;
 import gr.galeos.seniortracker.UserModel;
 import gr.galeos.seniortracker.databinding.FragmentMapsBinding;
 import gr.galeos.seniortracker.models.LocationModel;
+import gr.galeos.seniortracker.models.User;
 import gr.galeos.seniortracker.utils.PermissionUtils;
+import gr.galeos.seniortracker.utils.SharedPreferencesUtils;
+import gr.galeos.seniortracker.utils.dialogs.SeniorsDialogFragment;
 
 public class MapsFragment extends Fragment implements
         GoogleMap.OnMyLocationButtonClickListener,
@@ -48,7 +55,6 @@ public class MapsFragment extends Fragment implements
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        viewModel = new MapsViewModel(); // Initialize the ViewModel
     }
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -60,14 +66,19 @@ public class MapsFragment extends Fragment implements
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        setupViewModel();
         setupMap();
-
+        setClickListeners();
         setupObservers();
 
         // Trigger fetch of the last location
         if (UserModel.getInstance().user.getAccountType().equals("0")) {
-            viewModel.fetchLastLocationData();
+            viewModel.getMySeniors();
         }
+    }
+
+    private void setupViewModel(){
+        viewModel = new ViewModelProvider(this).get(MapsViewModel.class);
     }
 
     private void setupMap() {
@@ -78,7 +89,27 @@ public class MapsFragment extends Fragment implements
         }
     }
 
+    private void setClickListeners() {
+        binding.seniorsLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SeniorsDialogFragment.newInstance().show(getChildFragmentManager(), "dialog");
+            }
+        });
+    }
+
     private void setupObservers() {
+        viewModel.getSeniors().observe(getViewLifecycleOwner(), new Observer<ArrayList<User>>() {
+            @Override
+            public void onChanged(ArrayList<User> seniors) {
+                if (seniors != null) {
+                    loadData();
+                } else {
+                    Toast.makeText(requireContext(), "No seniors found", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
         // Fetch the last known location and observe changes
         viewModel.getLastLocationsLiveData().observe(getViewLifecycleOwner(), new Observer<LocationModel>() {
             @Override
@@ -96,11 +127,29 @@ public class MapsFragment extends Fragment implements
                             .title("Last Location")
                             .icon( BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
                     map.moveCamera(CameraUpdateFactory.newLatLng(lastKnownLatLng));
-                } else {
-                    Toast.makeText(requireContext(), "No location data available", Toast.LENGTH_SHORT).show();
                 }
             }
         });
+    }
+
+    private void loadData() {
+        if(SharedPreferencesUtils.isSessionIdValid() && SharedPreferencesUtils.seniorSelected()){
+            Log.d("MapsFragment", "Selected senior: " + SharedPreferencesUtils.retrieveSelectedSenior());
+            Log.d("MapsFragment", "Seniors: " + UserModel.getInstance().seniors);
+            UserModel.getInstance().seniors.stream().filter( senior -> senior.getId().equals(SharedPreferencesUtils.retrieveSelectedSenior())).findFirst().ifPresent(senior -> {
+                binding.tvName.setText(senior.getFirstname());
+                binding.tvSurname.setText(senior.getLastname());
+                viewModel.fetchLastLocationData(senior);
+            });
+        } else if (SharedPreferencesUtils.isSessionIdValid() && !SharedPreferencesUtils.seniorSelected()) {
+            User senior = UserModel.getInstance().seniors.get(0);
+            SharedPreferencesUtils.saveSelectedSenior(senior.getId());
+            binding.tvName.setText(senior.getFirstname());
+            binding.tvSurname.setText(senior.getLastname());
+            viewModel.fetchLastLocationData(senior);
+        } else if (!SharedPreferencesUtils.isSessionIdValid()) {
+            Toast.makeText(requireContext(), "No session id found", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override

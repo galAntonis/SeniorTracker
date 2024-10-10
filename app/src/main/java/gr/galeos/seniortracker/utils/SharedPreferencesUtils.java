@@ -59,5 +59,19 @@ public class SharedPreferencesUtils {
     public static boolean isLoginSkipped() {
         return readFromSharedPreferencesBoolean(Constants.USER_SKIP_LOGIN);
     }
+
+    public static void saveSelectedSenior(String value) {
+    writeToSharedPreferences(Constants.USER_SENIORS, value);
+    }
+
+    public static String retrieveSelectedSenior() {
+        return readFromSharedPreferences(Constants.USER_SENIORS);
+    }
+
+    public static Boolean seniorSelected() {
+        return retrieveSelectedSenior() != null;
+    }
+
+    public static void invalidateSeniorSelected()  { removeFromSharedPreferences(Constants.USER_SENIORS); }
 }
 

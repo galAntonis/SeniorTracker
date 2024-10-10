@@ -7,5 +7,6 @@ public class Constants {
     public static String USER_LOGGED_IN = "isLoggedIn";
     public static String USER_LOGOUT = "isLogout";
     public static String USER_TYPE = "USER_TYPE";
+    public static String USER_SENIORS = "USER_SENIORS";
 
 }

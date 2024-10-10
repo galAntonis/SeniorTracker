@@ -1,5 +1,6 @@
 package gr.galeos.seniortracker;
 
+import java.util.ArrayList;
 import java.util.Locale;
 
 import gr.galeos.seniortracker.models.User;
@@ -7,6 +8,7 @@ import gr.galeos.seniortracker.models.User;
 public class UserModel {
     private static volatile UserModel shared;
     public User user = null;
+    public ArrayList<User> seniors  = new ArrayList<>();
     private String lang = Locale.getDefault().getLanguage().equals("el") ? "el" : "en";
 
     private UserModel() {
