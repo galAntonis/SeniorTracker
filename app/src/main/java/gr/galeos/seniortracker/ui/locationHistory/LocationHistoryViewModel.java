@@ -35,17 +35,18 @@ public class LocationHistoryViewModel extends ViewModel {
     private void fetchLocationData() {
         long twoHoursAgo = System.currentTimeMillis() - (2 * 60 * 60 * 1000);  // Current time minus 2 hours in milliseconds
 
-        databaseReference.child(SeniorModel.getInstance().user.getId()).addValueEventListener(new ValueEventListener() {
+        databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 List<LocationModel> locationList = new ArrayList<>();
-                for (DataSnapshot locationSnapshot : snapshot.getChildren()) {
-                    LocationModel location = locationSnapshot.getValue(LocationModel.class);
-                    if (location != null && location.timestamp >= twoHoursAgo) {
-                        locationList.add(location);  // Only add locations from the last 2 hours
+                for (DataSnapshot userSnapshot : snapshot.getChildren()) { // Loop through all top-level children
+                    for (DataSnapshot locationSnapshot : userSnapshot.getChildren()) { // Loop through each user's locations
+                        LocationModel location = locationSnapshot.getValue(LocationModel.class);
+                        if (location != null && location.timestamp >= twoHoursAgo) {
+                            locationList.add(location);  // Only add locations from the last 2 hours
+                        }
                     }
                 }
-                // Update LiveData with the fetched locations
                 locationsLiveData.setValue(locationList);
             }
 

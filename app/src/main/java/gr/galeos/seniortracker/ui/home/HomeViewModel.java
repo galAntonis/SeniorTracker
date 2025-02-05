@@ -1,16 +1,16 @@
 package gr.galeos.seniortracker.ui.home;
 
+import android.util.Log;
+import android.widget.Toast;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
-
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.FirebaseFirestore;
-
 import java.util.ArrayList;
-
 import gr.galeos.seniortracker.SeniorModel;
 import gr.galeos.seniortracker.UserModel;
+import gr.galeos.seniortracker.models.GeofenceModel;
 import gr.galeos.seniortracker.models.User;
 
 public class HomeViewModel extends ViewModel {
@@ -30,6 +30,12 @@ public class HomeViewModel extends ViewModel {
         return _seniors;
     }
 
+    private final MutableLiveData<ArrayList<GeofenceModel>> _geofences = new MutableLiveData<>();
+
+    public LiveData<ArrayList<GeofenceModel>> getGeofences() {
+        return _geofences;
+    }
+
     public HomeViewModel() {
         database = FirebaseDatabase.getInstance();
         db = FirebaseFirestore.getInstance();
@@ -46,6 +52,7 @@ public class HomeViewModel extends ViewModel {
                                 task.getResult().get("email", String.class),
                                 task.getResult().get("phone", String.class),
                                 task.getResult().get("accountType", String.class));
+
                         _accountFound.setValue(true);
                     } else {
                         _accountFound.setValue(false);
@@ -75,5 +82,34 @@ public class HomeViewModel extends ViewModel {
                         _seniors.postValue(null);
                     }
                 });
+    }
+
+    public void getMyGeofences() {
+        db.collection("geofences")
+                .document(UserModel.getInstance().user.getEmail())
+                .collection("my_geofences")
+                .get()
+                .addOnCompleteListener( task -> {
+                    if(task.isSuccessful()) {
+                        ArrayList<GeofenceModel> geofences = new ArrayList<>();
+                        UserModel.getInstance().geofences.clear();
+                        Log.d("HomeViewModel", "Size " +task.getResult().size());
+                        for (int i = 0; i < task.getResult().size(); i++) {
+                            GeofenceModel geofence = new GeofenceModel(
+                                task.getResult().getDocuments().get(i).get("name", String.class),
+                                task.getResult().getDocuments().get(i).get("latitude", Double.class),
+                                task.getResult().getDocuments().get(i).get("longitude", Double.class),
+                                task.getResult().getDocuments().get(i).get("radius", Integer.class)
+                            );
+                            UserModel.getInstance().geofences.add(geofence);
+                            geofences.add(geofence);
+                        }
+                        _geofences.postValue(geofences);
+                    } else {
+                        _geofences.postValue(null);
+                        Toast.makeText(null, "No geofences found", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
     }
 }

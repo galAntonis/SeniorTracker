@@ -1,7 +1,6 @@
 package gr.galeos.seniortracker;
 
 import java.util.Locale;
-
 import gr.galeos.seniortracker.models.User;
 
 public class SeniorModel {

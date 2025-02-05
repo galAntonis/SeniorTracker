@@ -51,7 +51,6 @@ public class ManagePlacesViewModel extends ViewModel {
                 });
     }
 
-
     // Getter for LiveData to observe in the fragment
     public LiveData<Pair<List<GeofenceModel>, List<String>>> getGeofencesLiveData() {
         return geofencesLiveData;

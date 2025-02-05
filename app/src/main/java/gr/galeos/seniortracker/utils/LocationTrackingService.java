@@ -105,8 +105,32 @@ public class LocationTrackingService extends Service {
     private void sendLocationToFirebase(Location location) {
         String key = databaseReference.push().getKey();
         if (key != null && UserModel.getInstance().user.getId() != null) {
-            databaseReference.child(UserModel.getInstance().user.getId()).child(key).setValue(new LocationModel(location.getLatitude(), location.getLongitude(), UserModel.getInstance().user.getEmail()));
+            String name = null;
+            if (UserModel.getInstance().geofences != null) {
+                for (int i = 0; i < UserModel.getInstance().geofences.size(); i++) {
+                    if(knownLocation(location.getLatitude(), location.getLongitude()) != null) {
+                        name = knownLocation(location.getLatitude(), location.getLongitude());
+                    }
+                }
+            }
+            databaseReference.child(UserModel.getInstance().user.getId()).child(key).setValue(new LocationModel(location.getLatitude(), location.getLongitude(), UserModel.getInstance().user.getEmail(), name));
         }
+    }
+
+    private String knownLocation(double lat, double lon) {
+        if (UserModel.getInstance().geofences != null) {
+            for (int i = 0; i < UserModel.getInstance().geofences.size(); i++) {
+                double geoLat = UserModel.getInstance().geofences.get(i).getLatitude();
+                double geoLon = UserModel.getInstance().geofences.get(i).getLongitude();
+                int radius = UserModel.getInstance().geofences.get(i).getRadius();
+                if(DistanceCalculator.calculateDistanceInKm(lat, lon, geoLat, geoLon) < radius) {
+                    return UserModel.getInstance().geofences.get(i).getName();
+                }
+            }
+        } else{
+            return null;
+        }
+        return null;
     }
 
     @Override

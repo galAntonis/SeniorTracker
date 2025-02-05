@@ -101,6 +101,7 @@ public class HomeFragment extends Fragment {
         binding.includeYourSeniors.getRoot().setVisibility(View.GONE);
         binding.loggedOutLayout.getRoot().setVisibility(View.GONE);
         binding.seniorsLayout.getRoot().setVisibility(View.VISIBLE);
+        viewModel.getMyGeofences();
     }
 
     private void initLogoutUI() {
@@ -118,7 +119,7 @@ public class HomeFragment extends Fragment {
             if (found) {
                 if (UserModel.getInstance().user.getAccountType().equals("0")) {
                     initSupervisorUI();
-                } else if (UserModel.getInstance().user.getAccountType().equals("1")){
+                } else if (UserModel.getInstance().user.getAccountType().equals("1")) {
                     initSeniorUI();
                 }
             } else {
@@ -130,11 +131,21 @@ public class HomeFragment extends Fragment {
             if (seniors != null) {
                 binding.includeYourSeniors.list.setLayoutManager(new LinearLayoutManager(getContext()));
                 binding.includeYourSeniors.list.setAdapter(new HomeFragment.SeniorsAdapter(seniors));
-                for (int i=0;i<seniors.size();i++){
+                for (int i = 0; i < seniors.size(); i++) {
                     Log.d("ManageSeniorsFragment", "Seniors found: " + seniors.get(i).getEmail());
                 }
             } else {
                 Log.d("ManageSeniorsFragment", "Seniors not found");
+            }
+        });
+
+        viewModel.getGeofences().observe(getViewLifecycleOwner(), geofences -> {
+            if (geofences != null) {
+                for (int i = 0; i < geofences.size(); i++) {
+                    Log.d("ManageGeofencesFragment", "Geofences found: " + geofences.get(i).getName());
+                }
+            } else {
+                Log.d("ManageGeofencesFragment", "Geofences not found");
             }
         });
     }
@@ -192,10 +203,6 @@ public class HomeFragment extends Fragment {
         }
     }
 
-
-
-
-
     private static class SeniorsAdapter extends RecyclerView.Adapter<HomeFragment.ViewHolder> {
         private ArrayList<User> seniors;
 
@@ -226,8 +233,6 @@ public class HomeFragment extends Fragment {
             return seniors.size();
         }
     }
-
-
 
     @Override
     public void onDestroyView() {

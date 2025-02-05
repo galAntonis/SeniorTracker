@@ -57,6 +57,9 @@ public class LocationHistoryFragment extends Fragment {
                     .append(location.latitude)
                     .append(", Lng: ")
                     .append(location.longitude)
+                    .append("\n")
+                    .append("Email: ")
+                    .append(location.email)
                     .append("\n");
         }
 
