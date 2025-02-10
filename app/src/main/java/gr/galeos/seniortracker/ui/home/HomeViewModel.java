@@ -2,15 +2,24 @@ package gr.galeos.seniortracker.ui.home;
 
 import android.util.Log;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.ArrayList;
+import java.util.List;
+
 import gr.galeos.seniortracker.SeniorModel;
 import gr.galeos.seniortracker.UserModel;
 import gr.galeos.seniortracker.models.GeofenceModel;
+import gr.galeos.seniortracker.models.LocationModel;
 import gr.galeos.seniortracker.models.User;
 
 public class HomeViewModel extends ViewModel {
@@ -34,6 +43,12 @@ public class HomeViewModel extends ViewModel {
 
     public LiveData<ArrayList<GeofenceModel>> getGeofences() {
         return _geofences;
+    }
+
+    private final MutableLiveData<List<LocationModel>> locationsLiveData = new MutableLiveData<>();
+
+    public LiveData<List<LocationModel>> getLocationsLiveData() {
+        return locationsLiveData;
     }
 
     public HomeViewModel() {
@@ -78,6 +93,7 @@ public class HomeViewModel extends ViewModel {
                             seniors.add(user);
                         }
                         _seniors.postValue(seniors);
+                        fetchLocationData();
                     } else {
                         _seniors.postValue(null);
                     }
@@ -112,4 +128,30 @@ public class HomeViewModel extends ViewModel {
                 });
 
     }
+
+    private void fetchLocationData() {
+        long twoHoursAgo = System.currentTimeMillis() - (2 * 60 * 60 * 1000);  // Current time minus 2 hours
+
+        FirebaseDatabase.getInstance().getReference("locations").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                List<LocationModel> locationList = new ArrayList<>();
+                for (DataSnapshot userSnapshot : snapshot.getChildren()) { // Loop through all users
+                    for (DataSnapshot locationSnapshot : userSnapshot.getChildren()) { // Loop through each user's locations
+                        LocationModel location = locationSnapshot.getValue(LocationModel.class);
+                        if (location != null && location.name != null && !location.name.trim().isEmpty() && location.timestamp >= twoHoursAgo) {
+                            locationList.add(location);  // Only add valid locations
+                        }
+                    }
+                }
+                locationsLiveData.setValue(locationList);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                // Handle errors
+            }
+        });
+    }
+
 }

@@ -79,6 +79,6 @@
     <string name="location_hint">Type in the name of the location</string>
     <string name="geofence_email_hint">Type in your seniors email</string>
     <string name="choose_senior">Choose senior</string>
-
+    <string name="no_notifications">There are notifications</string>
 
 </resources>

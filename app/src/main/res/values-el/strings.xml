@@ -63,5 +63,23 @@
     <string name="edit_senior_title">Επεξεργασία Χρήστη</string>
     <string name="location_history_title">Ιστορικό Τοποθεσίας</string>
     <string name="choose_language_title">Επιλογή Γλώσσας</string>
+    <string name="title_language">Γλώσσα</string>
+    <string name="title_account_settings">Λογαριασμός</string>
+    <string name="my_geofences">Οι περιοχές μου</string>
+    <string name="add_senior">Πρόσθεσε άτομο</string>
+    <string name="add_geofence">Πρόσθεσε περιοχή</string>
+    <string name="title_add_geofence">Πρόσθεσε περιοχή</string>
+    <string name="mark_geofence">Σημείωσε περιοχή</string>
+    <string name="title_geofence_details">Φτιάξε περιοχή</string>
+    <string name="location">Όνομα περιοχής</string>
+    <string name="latitude">Γεωγραφικό πλάτος:</string>
+    <string name="longitude">Γεωγραφικό μήκος:</string>
+    <string name="radius">Διάμετρος σε μέτρα:</string>
+    <string name="create_geofence">Φτιάξε περιοχή</string>
+    <string name="your_senior_email">Email</string>
+    <string name="location_hint">Πληκτρολογήστε το όνομα τις περιοχής</string>
+    <string name="geofence_email_hint">Πληκτρολογήστε το email του ατόμου</string>
+    <string name="choose_senior">Επιλέξτε άτομο</string>
+    <string name="no_notifications">Δεν υπάρχουν ειδοποιήσεις</string>
 
 </resources>

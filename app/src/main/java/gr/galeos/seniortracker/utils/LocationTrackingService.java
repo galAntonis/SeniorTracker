@@ -113,7 +113,7 @@ public class LocationTrackingService extends Service {
                     }
                 }
             }
-            databaseReference.child(UserModel.getInstance().user.getId()).child(key).setValue(new LocationModel(location.getLatitude(), location.getLongitude(), UserModel.getInstance().user.getEmail(), name));
+            databaseReference.child(UserModel.getInstance().user.getId()).child(key).setValue(new LocationModel(location.getLatitude(), location.getLongitude(), UserModel.getInstance().user.getEmail(), name, UserModel.getInstance().user.getFirstname(), UserModel.getInstance().user.getLastname()));
         }
     }
 

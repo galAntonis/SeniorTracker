@@ -25,12 +25,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import gr.galeos.seniortracker.R;
 import gr.galeos.seniortracker.UserModel;
 import gr.galeos.seniortracker.databinding.FragmentHomeBinding;
+import gr.galeos.seniortracker.databinding.ItemLatestAcivityBinding;
+import gr.galeos.seniortracker.databinding.ItemLocationHistoryBinding;
 import gr.galeos.seniortracker.databinding.ItemYourSeniorsBinding;
+import gr.galeos.seniortracker.models.LocationModel;
 import gr.galeos.seniortracker.models.User;
+import gr.galeos.seniortracker.ui.locationHistory.LocationHistoryFragment;
 import gr.galeos.seniortracker.utils.Constants;
 import gr.galeos.seniortracker.utils.LocationTrackingService;
 import gr.galeos.seniortracker.utils.MessageEvent;
@@ -148,6 +153,18 @@ public class HomeFragment extends Fragment {
                 Log.d("ManageGeofencesFragment", "Geofences not found");
             }
         });
+
+        HomeFragment.LocationAdapter adapter = new HomeFragment.LocationAdapter();
+        binding.includeLatestActivity.locationList.setLayoutManager(new LinearLayoutManager(getContext()));
+        binding.includeLatestActivity.locationList.setAdapter(adapter);
+
+        viewModel.getLocationsLiveData().observe(getViewLifecycleOwner(), locations -> {
+            // Ensure that we update the UI only when the binding is non-null
+            if (binding != null) {
+                adapter.updateList(locations);
+            }
+        });
+
     }
 
     private void setClickListeners() {
@@ -231,6 +248,56 @@ public class HomeFragment extends Fragment {
         @Override
         public int getItemCount() {
             return seniors.size();
+        }
+    }
+
+    private static class LocationViewHolder extends RecyclerView.ViewHolder {
+        private final TextView name;
+        private final TextView place;
+        private final TextView date;
+
+        public LocationViewHolder(ItemLatestAcivityBinding binding) {
+            super(binding.getRoot());
+            this.name = binding.tvName;
+            this.place = binding.tvPlace;
+            this.date = binding.tvDate;
+        }
+
+        public void bind(String name, String place, String date) {
+            this.name.setText(name);
+            this.place.setText(place);
+            this.date.setText(date);
+        }
+    }
+
+    private static class LocationAdapter extends RecyclerView.Adapter<HomeFragment.LocationViewHolder> {
+        private List<LocationModel> locations = new ArrayList<>(); // Initialize with empty list
+
+        public void updateList(List<LocationModel> newLocations) {
+            this.locations.clear();
+            this.locations.addAll(newLocations);
+            notifyDataSetChanged(); // Notify adapter about the changes
+        }
+
+        @NonNull
+        @Override
+        public HomeFragment.LocationViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            return new HomeFragment.LocationViewHolder(
+                    ItemLatestAcivityBinding.inflate(
+                            LayoutInflater.from(parent.getContext()), parent, false)
+            );
+        }
+
+        @Override
+        public void onBindViewHolder(HomeFragment.LocationViewHolder holder, int position) {
+            LocationModel location = locations.get(position);
+            String username = location.firstName + " " + location.lastName;
+            holder.bind(username, location.name, location.getDate()); // Assuming date is missing
+        }
+
+        @Override
+        public int getItemCount() {
+            return locations.size();
         }
     }
 
