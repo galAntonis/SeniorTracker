@@ -30,7 +30,7 @@
                     android:id="@+id/tvManageSeniors"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Add Senior"
+                    android:text="@string/add_senior"
                     android:textColor="@color/stGreenCheck"
                     android:textSize="18sp" />
 

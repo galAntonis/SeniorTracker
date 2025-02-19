@@ -80,5 +80,18 @@
     <string name="geofence_email_hint">Type in your seniors email</string>
     <string name="choose_senior">Choose senior</string>
     <string name="no_notifications">There are notifications</string>
+    <string name="options">Options</string>
+    <string name="account">Account</string>
+    <string name="language">Language</string>
+    <string name="logout">Logout</string>
+    <string name="connection">Connection</string>
+    <string name="latest_activity">Latest Activity</string>
+    <string name="logged_out_message">You have to Login or Sign up in order to use the app</string>
+    <string name="broadcast_your_location">Broadcast your Location</string>
+    <string name="start_broadcasting">Start Broadcasting</string>
+    <string name="stop_broadcasting">Stop Broadcasting</string>
+    <string name="your_seniors">Your Seniors</string>
+    <string name="type_seniors_email_here">Type seniors email here</string>
+    <string name="search">Search</string>
 
 </resources>

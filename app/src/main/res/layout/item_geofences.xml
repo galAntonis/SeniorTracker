@@ -9,7 +9,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="@dimen/fragment_padding"
-        android:text="Location"
         android:textColor="@color/stBlack"
         android:textSize="16sp"
         app:layout_constraintEnd_toStartOf="@id/ivSettings"

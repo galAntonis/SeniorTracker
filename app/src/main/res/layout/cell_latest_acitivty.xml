@@ -10,7 +10,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/fragment_padding"
-        android:text="Latest Activity"
+        android:text="@string/latest_activity"
         android:textColor="@color/stBlack"
         android:textSize="22sp"
         android:textStyle="bold"

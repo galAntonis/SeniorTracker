@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/fragment_padding"
         android:gravity="center"
-        android:text="You have to Login or Sign up in order to use the app"
+        android:text="@string/logged_out_message"
         android:textSize="22sp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"

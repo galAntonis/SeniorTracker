@@ -14,14 +14,14 @@
     <string name="dashboard_history">Ιστορικό Τοποθεσίας</string>
     <string name="dashboard_view_places">Προβολή τοποθεσιών</string>
     <string name="dashboard_manage_places">Διαχείριση τοποθεσιών</string>
-    <string name="dashboard_manage_seniors">Διαχείριση ηλικιωμένων</string>
+    <string name="dashboard_manage_seniors">Διαχείριση ατόμων</string>
     <string name="dashboard_settings">Ρυθμίσεις</string>
 
     <string name="title_settings">Ρυθμίσεις</string>
     <string name="title_history">Ιστορικό Τοποθεσίας</string>
     <string name="title_manage_places">Διαχείριση τοποθεσιών</string>
     <string name="title_view_places">Προβολή τοποθεσιών</string>
-    <string name="title_manage_seniors">Διαχείριση ηλικιωμένων</string>
+    <string name="title_manage_seniors">Διαχείριση ατόμων</string>
     <string name="login_title">Καλώς ήρθατε στο SeniorTracker</string>
     <string name="login_subtitle">Συνδεθείτε ή εγγραφείτε</string>
     <string name="email_placeholder">Ηλεκτρονικό ταχυδρομείο</string>
@@ -41,15 +41,15 @@
     <string name="save_changes">Αποθήκευση αλλαγών</string>
     <string name="account_prompt">Συμπληρώστε τα παρακάτω πεδία για να ενεργοποιήσετε το λογαριασμό</string>
     <string name="supervisor">Επιβλέπων</string>
-    <string name="senior">Ηλικιωμένος</string>
+    <string name="senior">Ηλικιωμένο Άτομο</string>
     <string name="account_type">Επιλέξτε τον τύπο λογαριασμού</string>
     <string name="title_maps">Χάρτες</string>
     <string name="empty_fields">Υπάρχουν κενά πεδία</string>
     <string name="login_failed">Η σύνδεση απέτυχε</string>
     <string name="user_not_found">Ο χρήστης δεν βρέθηκε</string>
-    <string name="title_add_senior">Προσθήκη ηλικιωμένου</string>
-    <string name="title_edit_senior">Επεξεργασία ηλικιωμένου</string>
-    <string name="my_seniors">Οι ηλικιωμένοι μου</string>
+    <string name="title_add_senior">Προσθήκη ατόμου</string>
+    <string name="title_edit_senior">Επεξεργασία ατόμου</string>
+    <string name="my_seniors">Τα άτομα μου</string>
     <string name="select_language">Επιλογή γλώσσας</string>
     <string name="english">Αγγλικά</string>
     <string name="greek">Ελληνικά</string>
@@ -81,5 +81,18 @@
     <string name="geofence_email_hint">Πληκτρολογήστε το email του ατόμου</string>
     <string name="choose_senior">Επιλέξτε άτομο</string>
     <string name="no_notifications">Δεν υπάρχουν ειδοποιήσεις</string>
+    <string name="options">Επιλογές</string>
+    <string name="account">Λογαριασμός</string>
+    <string name="language">Γλώσσα</string>
+    <string name="logout">Αποσύνδεση</string>
+    <string name="connection">Συνδεση</string>
+    <string name="latest_activity">Δραστηριότητα</string>
+    <string name="logged_out_message">Θα πρέπει να κανεις σύνδεση ή εγγραφή προκειμένου να χρησιμοποιήσεις την εφαρμογή</string>
+    <string name="broadcast_your_location">Μεταδώστε την τοποθεσία σας</string>
+    <string name="start_broadcasting">Ξεκινήστε τη μετάδοση</string>
+    <string name="stop_broadcasting">Σταματήστε τη μετάδοση</string>
+    <string name="your_seniors">Τα άτομα μου</string>
+    <string name="type_seniors_email_here">Εισάγετε email</string>
+    <string name="search">Αναζήτηση</string>
 
 </resources>

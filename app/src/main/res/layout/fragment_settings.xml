@@ -27,7 +27,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/fragment_padding"
                 android:layout_marginBottom="@dimen/fragment_padding"
-                android:text="Options"
+                android:text="@string/options"
                 android:textColor="@color/stGray3"
                 android:textSize="16sp"
                 android:textStyle="bold" />
@@ -55,7 +55,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_toRightOf="@+id/account_icon"
                     android:layout_centerVertical="true"
-                    android:text="Account"
+                    android:text="@string/account"
                     android:textColor="@color/stBlack"
                     android:textSize="20sp" />
 
@@ -96,7 +96,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_centerVertical="true"
                     android:layout_toRightOf="@+id/language_icon"
-                    android:text="Language"
+                    android:text="@string/language"
                     android:textColor="@color/stBlack"
                     android:textSize="20sp" />
 
@@ -135,7 +135,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/fragment_padding"
                 android:layout_marginBottom="@dimen/fragment_padding"
-                android:text="Connection"
+                android:text="@string/connection"
                 android:textColor="@color/stGray3"
                 android:textSize="16sp"
                 android:textStyle="bold" />
@@ -162,7 +162,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_centerVertical="true"
                     android:layout_toRightOf="@+id/exit_icon"
-                    android:text="Logout"
+                    android:text="@string/logout"
                     android:textColor="@color/stRedError"
                     android:textSize="20sp" />
 
